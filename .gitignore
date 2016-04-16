@@ -1,0 +1,8 @@
+# Ignore all dotfiles
+.*
+
+# Except...
+!.gitignore
+
+# Node.js
+node_modules
