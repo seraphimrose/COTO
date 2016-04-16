@@ -1,0 +1,39 @@
+{
+  "name": "COTO",
+  "version": "0.0.1",
+  "description": "Asserts",
+  "author": "Sera",
+  "dependencies": {
+    "antd": "0.12.12",
+    "axios": "0.8.1",
+    "immutable": "3.7.6",
+    "lodash": "^3.10.0",
+    "postcss-color-rgba-fallback": "^2.0.0",
+    "postcss-pseudoelements": "^3.0.0",
+    "querystring": "^0.2.0",
+    "react": "^0.14.3",
+    "react-custom-scrollbars": "4.0.0-beta.1",
+    "react-dom": "^0.14.3",
+    "react-redux": "4.0.0",
+    "react-router": "1.0.2",
+    "redux": "^3.0.3",
+    "redux-act": "0.2.0",
+    "redux-thunk": "^1.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.0.2",
+    "babel-loader": "^5.2.2",
+    "css-loader": "^0.15.1",
+    "eclint": "^1.1.5",
+    "es5-shim": "~4.1.10",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "gulp": "git://github.com/gulpjs/gulp#bbe3c56138a9ede627879d7e47daffd0a6d9b6db",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "postcss-loader": "^0.6.0",
+    "postcss-nested": "^1.0.0",
+    "postcss-simple-vars": "^1.0.0",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.12.1"
+  }
+}
