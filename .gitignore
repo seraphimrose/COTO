@@ -6,3 +6,6 @@
 
 # Node.js
 node_modules
+
+# static src
+static
