@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+var path = require('path')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var AUTOPREFIXER_BROWSERS = [
@@ -36,12 +37,20 @@ module.exports = {
 	},
 
 	resolve: {
-		extensions: ['', '.js', '.jsx']
+		extensions: ['', '.js', '.jsx'],
+		alias: {
+			'action': path.join(__dirname, './app/action'),
+			'api': path.join(__dirname, './app/api'),
+			'component': path.join(__dirname, './app/component'),
+			'config': path.join(__dirname, './app/config'),
+			'container': path.join(__dirname, './app/container'),
+			'reducer': path.join(__dirname, './app/reducer')
+		}
 	},
 
 
 	plugins: [
 		new webpack.NoErrorsPlugin(),
-		new ExtractTextPlugin("bundle.css"),
+		new ExtractTextPlugin("bundle.css")
 	]
 }
