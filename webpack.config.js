@@ -27,13 +27,6 @@ module.exports = {
 		]
 	},
 
-	externals: {
-		'react': 'React',
-		'react-dom': 'ReactDOM',
-		'immutable': 'Immutable',
-		'antd': 'antd',
-	},
-
 	postcss: function() {
 		return [
 			require('autoprefixer')({ browsers: AUTOPREFIXER_BROWSERS }),
