@@ -1,0 +1,42 @@
+:local(.card) {
+	width: 250px;
+	padding: 5px;
+	margin-top: 3px;
+	background: #FFF;
+	border-radius: 5px;
+	overflow: hidden;
+
+	:local(.tag) {
+		margin-bottom: 2px;
+		.tag {
+			float: right;
+			width: 50px;
+			height: 20px;
+			margin-left: 10px;
+			border-radius: 10px;
+
+			&.tag-red {
+				background: red;
+			}
+			&.tag-blue {
+				background: blue;
+			}
+			&.tag-yellow {
+				background: yellow;
+			}
+		}
+	}
+
+	:local(.hint) {
+		float: left;
+	}
+
+	:local(.member) {
+		img {
+			float: right;
+			width: 30px;
+			margin-left: 3px;
+			border-radius: 2px;
+		}
+	}
+}

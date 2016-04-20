@@ -1,0 +1,10 @@
+:local(.list) {
+	float: left;
+	width: 260px;
+	padding: 5px;
+	margin-left: 10px;
+	background: #eee;
+	border-radius: 5px;
+	min-height: 200px;
+	overflow: hidden;
+}
