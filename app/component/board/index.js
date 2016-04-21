@@ -19,7 +19,7 @@ export default (props) => {
 					/>
 				))}
 			</div>
-			<div className={style.add}>
+			<div className={style.new}>
 				Add a list...
 			</div>
 		</div>
