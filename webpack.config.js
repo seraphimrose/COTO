@@ -17,7 +17,7 @@ module.exports = {
 	entry: './app/main.js',
 
 	output: {
-		filename: 'bundle.js',
+		filename: 'COTO.js',
 		path: './static/'
 	},
 
@@ -51,6 +51,6 @@ module.exports = {
 
 	plugins: [
 		new webpack.NoErrorsPlugin(),
-		new ExtractTextPlugin("bundle.css")
+		new ExtractTextPlugin("COTO.css")
 	]
 }
