@@ -1,30 +1,37 @@
 :local(.card) {
-	width: 250px;
+	width: 260px;
 	padding: 5px;
-	margin-top: 3px;
+	margin-bottom: 8px;
 	background: #FFF;
 	border-radius: 5px;
 	overflow: hidden;
+	font-size: 14px;
+	cursor: pointer;
 
 	:local(.tag) {
-		margin-bottom: 2px;
+		margin-bottom: 3px;
+		overflow: hidden;
 		.tag {
-			float: right;
-			width: 50px;
-			height: 20px;
-			margin-left: 10px;
-			border-radius: 10px;
+			float: left;
+			width: 40px;
+			height: 7px;
+			margin-left: 3px;
+			border-radius: 3px;
 
 			&.tag-red {
-				background: red;
+				background: #f08080;
 			}
 			&.tag-blue {
-				background: blue;
+				background: #6495ed;
 			}
 			&.tag-yellow {
-				background: yellow;
+				background: #ffd700;
 			}
 		}
+	}
+
+	:local(.title) {
+		padding-left: 2px;
 	}
 
 	:local(.hint) {
@@ -34,8 +41,10 @@
 	:local(.member) {
 		img {
 			float: right;
-			width: 30px;
+			width: 35px;
+			height: 35px;
 			margin-left: 3px;
+			border: 1px #aaa solid;
 			border-radius: 2px;
 		}
 	}

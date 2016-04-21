@@ -1,18 +1,23 @@
 import React from 'react'
+import Tooltip from 'antd/lib/tooltip'
 
 import style from './card.css'
 
 export default (props) => {
 	const { card, tag, member } = props
+
 	return (
 		<div className={style.card}>
 			<div className={style.tag}>
 				{card.get('tag').map(value => (
-					<span
+					<Tooltip
 						key={value}
-						className={'tag tag-' + tag.getIn([value, 'color'])}
+						placement="top"
+						title={tag.getIn([value, 'title'])}
 					>
-					</span>
+						<span className={'tag tag-' + tag.getIn([value, 'color'])}>
+						</span>
+					</Tooltip>
 				))}
 			</div>
 			<div className={style.title}>
@@ -21,10 +26,13 @@ export default (props) => {
 			<div className={style.hint}></div>
 			<div className={style.member}>
 				{card.get('member').map(value => (
-					<img
+					<Tooltip
 						key={value}
-						src={member.getIn([value, 'avatar'])}
-					/>
+						placement="top"
+						title={member.getIn([value, 'name'])}
+					>
+						<img src={member.getIn([value, 'avatar'])} />
+					</Tooltip>
 				))}
 			</div>
 		</div>

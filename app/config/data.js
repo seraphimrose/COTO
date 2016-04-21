@@ -51,11 +51,11 @@ export default {
 	member: {
 		m1: {
 			name: 'Sera',
-			avatar: 'static/img/avatar1.jpg'
+			avatar: 'static/img/avatar3.jpg'
 		},
 		m2: {
 			name: 'Baka',
-			avatar: 'static/img/avatar2.jpg'
+			avatar: 'static/img/avatar4.jpg'
 		}
 	}
 }

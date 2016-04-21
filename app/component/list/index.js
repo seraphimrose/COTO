@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from 'antd/lib/icon'
 
 import Card from 'component/card'
 import style from './list.css'
@@ -8,7 +9,7 @@ export default (props) => {
 	return (
 		<div className={style.list}>
 			<div className={style.title}>
-				<h5>{list.get('title')}</h5>
+				<h3>{list.get('title')}</h3>
 			</div>
 			<div className={style.content}>
 				{list.get('card').map(value => (
@@ -18,9 +19,9 @@ export default (props) => {
 						card={props.card.get(value)}
 					/>
 				))}
-			</div>
-			<div className={style.new}>
-				Add a card...
+				<div className={style.new}>
+					<Icon className={style.icon} type="plus" />Add a card...
+				</div>
 			</div>
 		</div>
 	)

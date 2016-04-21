@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'antd/lib/index.css'
 
 import createRoot from 'api/createRoot'
 import createStore from 'api/createStore'

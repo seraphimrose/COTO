@@ -1,12 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Board from 'component/board'
 import createFlexContainer from 'api/createFlexContainer'
 import { mapGetter } from 'api/utils'
-
-
-const App = (props) => ( <Board {...props}/> )
+import App from 'component/app'
 
 const AppContainer =  createFlexContainer()(App)
 
