@@ -9,7 +9,8 @@ export default (props) => {
 	return (
 		<div className={style.card}>
 			<div className={style.tag}>
-				{card.get('tag').map(value => (
+				{card.get('tag') &&
+					card.get('tag').map(value => (
 					<Tooltip
 						key={value}
 						placement="top"
@@ -25,7 +26,7 @@ export default (props) => {
 			</div>
 			<div className={style.hint}></div>
 			<div className={style.member}>
-				{card.get('member').map(value => (
+				{card.get('member') && card.get('member').map(value => (
 					<Tooltip
 						key={value}
 						placement="top"

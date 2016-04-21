@@ -12,7 +12,8 @@ export default (props) => {
 				<h1>{board.get('title')}</h1>
 			</div>
 			<div className={style.content}>
-				{board.get('list').map(value => (
+				{board.get('list') && 
+					board.get('list').map(value => (
 					<List
 						{...props}
 						key={value}
