@@ -31,4 +31,28 @@
 		margin-right: 3px;
 		color: #32cd32;
 	}
+
+	:local(.add) {
+		margin-top: 20px;
+		padding-top: 10px;
+		border-top: 2px dashed #777;
+
+		input {
+			width: 100%;
+			display: block;
+			padding: 3px 5px;
+			border-radius: 3px;
+			font-size: 14px;
+			margin-bottom: 10px;
+			border: 0;
+			box-shadow: 1px 1px 1px 1px #aaa;
+		}
+		:local(.control) {
+			text-align: right;
+
+			button {
+				margin-left: 10px;
+			}
+		}
+	}
 }

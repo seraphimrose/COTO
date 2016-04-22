@@ -7,6 +7,7 @@
 	overflow: hidden;
 	font-size: 14px;
 	cursor: pointer;
+	box-shadow: 1px 1px 1px 1px #777;
 	&:hover {
 		background: #ddd;
 	}
