@@ -19,6 +19,7 @@
 		cursor: pointer;
 		border: 2px dashed #777;
 		border-radius: 5px;
+		margin-top: 20px;
 		&:hover {
 			color: #000;
 			text-decoration: underline;
@@ -45,8 +46,8 @@
 			font-size: 14px;
 			margin-bottom: 10px;
 			border: 0;
-			box-shadow: 1px 1px 1px 1px #aaa;
 		}
+
 		:local(.control) {
 			text-align: right;
 
