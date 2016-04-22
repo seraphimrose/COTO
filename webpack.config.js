@@ -44,7 +44,8 @@ module.exports = {
 			'component': path.join(__dirname, './app/component'),
 			'config': path.join(__dirname, './app/config'),
 			'container': path.join(__dirname, './app/container'),
-			'reducer': path.join(__dirname, './app/reducer')
+			'reducer': path.join(__dirname, './app/reducer'),
+			'selector': path.join(__dirname, './app/selector')
 		}
 	},
 

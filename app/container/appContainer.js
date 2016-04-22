@@ -2,15 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import createFlexContainer from 'api/createFlexContainer'
-import { mapGetter } from 'api/utils'
 import App from 'component/app'
+import appSelector from 'selector/appSelector'
 
-const AppContainer =  createFlexContainer()(App)
+const AppContainer = createFlexContainer()(App)
 
 export default connect(state => ({
-	board: mapGetter(state.entity, 'board'),
-	list: mapGetter(state.entity, 'list'),
-	card: mapGetter(state.entity, 'card'),
-	tag: mapGetter(state.entity, 'tag'),
-	member: mapGetter(state.entity, 'member')
+	board: state.entity.get('board'),
+	list: state.entity.get('list'),
+	card: state.entity.get('card'),
+	tag: state.entity.get('tag'),
+	member: state.entity.get('member'),
+	next: state.next,
+	listShowed: state.entity.getIn(['board', 'list']).toJS()
 }))(AppContainer)

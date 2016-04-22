@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import test from './test'
 import entity from './entity'
+import next from './next'
 
-export default combineReducers({entity, test})
+export default combineReducers({entity, next})

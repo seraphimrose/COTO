@@ -1,59 +1,59 @@
 export default {
 	board: {
 		title: "Test",
-		list: ['l1', 'l2']
+		list: ['1', '2']
 	},
 	
 	list: {
-		l1: {
+		1: {
 			title: "Test",
-			card: ['l1_c1', 'l1_c2']
+			card: ['1', '2']
 		},
-		l2: {
+		2: {
 			title: "Test Another",
-			card: ['l2_c1']
+			card: ['3']
 		}
 	},
 	
 	card: {
-		l1_c1: {
+		1: {
 			title: "testing",
-			tag: ['t1', 't2'],
-			member: ['m1', 'm2']
+			tag: ['1', '2'],
+			member: ['1', '2']
 		},
-		l1_c2: {
+		2: {
 			title: "test233",
-			tag: ['t3'],
-			member: ['m1']
+			tag: ['3'],
+			member: ['1']
 		},
-		l2_c1: {
+		3: {
 			title: "tryTest",
-			tag: ['t2'],
-			member: ['m2']
+			tag: ['2'],
+			member: ['2']
 		}
 	},
 
 	tag: {
-		t1: {
+		1: {
 			color: 'red',
 			title: 'do red'
 		},
-		t2: {
+		2: {
 			color: 'blue',
 			title: 'do blue'
 		},
-		t3: {
+		3: {
 			color: 'yellow',
 			title: 'do yel'
 		}
 	},
 
 	member: {
-		m1: {
+		1: {
 			name: 'Sera',
 			avatar: 'static/img/avatar3.jpg'
 		},
-		m2: {
+		2: {
 			name: 'Baka',
 			avatar: 'static/img/avatar4.jpg'
 		}

@@ -55,8 +55,7 @@ export default class List extends Component {
 					<h3>{list.get('title')}</h3>
 				</div>
 				<div className={style.content}>
-					{list.get('card') &&
-					list.get('card').map(value => (
+					{list.get('card').map(value => (
 						<Card
 							{...this.props}
 							key={value}

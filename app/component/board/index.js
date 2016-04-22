@@ -5,23 +5,56 @@ import Button from 'antd/lib/button'
 import List from 'component/list'
 import style from './board.css'
 
+import { addList } from 'action/entity'
+
 class AddList extends Component {
 
 	constructor(props) {
 		super(props)
+		this.add = this.add.bind(this)
+		this.error = this.error.bind(this)
 	}
 
 	componentDidMount() {
 		this.refs.myInput.focus()
 	}
 
+	add() {
+		const { listShowed, next, dispatch, cancel } = this.props
+		const value = this.refs.myInput.value
+		if (value) {
+			const data = {
+				board: {
+					list: [...listShowed, next]
+				},
+
+				list: {
+					[next]: {
+						title: value,
+						card: []
+					}
+				}
+			}
+			dispatch(addList(data))
+			cancel()
+		} else {
+			this.error()
+		}
+	}
+
+	error() {
+		this.refs.myInput.style.border = "1px solid #f08080"
+	}
+	
+
 	render() {
 		const { cancel } = this.props
+
 		return (
 			<div className={style.add}>
 				<input ref="myInput" type="text" placeholder="title"/>
 				<div className={style.control}>
-					<Button onClick={cancel}
+					<Button onClick={this.add}
 							type="primary" size="large">Add</Button>
 					<Button onClick={cancel}
 							type="ghost" size="large">Cancel</Button>
@@ -37,6 +70,7 @@ export default class Board extends Component {
 		this.state = {isAdding: false}
 		this.add = this.add.bind(this)
 		this.cancel = this.cancel.bind(this)
+		
 	}
 
 	add() {
@@ -48,7 +82,7 @@ export default class Board extends Component {
 	}
 
 	render() {
-		const { board, list } = this.props
+		const { board, list, listShowed, dispatch, next } = this.props
 
 		return (
 			<div className={style.board}>
@@ -56,8 +90,7 @@ export default class Board extends Component {
 					<h1>{board.get('title')}</h1>
 				</div>
 				<div className={style.content}>
-					{board.get('list') &&
-					board.get('list').map(value => (
+					{listShowed.map(value => (
 						<List
 							{...this.props}
 							key={value}
@@ -66,7 +99,10 @@ export default class Board extends Component {
 					))}
 					{this.state.isAdding ? (
 						<AddList
+							listShowed={listShowed}
 							cancel={this.cancel}
+							dispatch={dispatch}
+							next={next.get('list')}
 						/>
 					) : (
 						<div onClick={this.add} className={style.new}>
