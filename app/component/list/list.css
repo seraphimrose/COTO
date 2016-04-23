@@ -1,5 +1,6 @@
 :local(.list) {
-	float: left;
+	display: inline-block;
+	vertical-align: top;
 	width: 280px;
 	padding: 10px;
 	margin-left: 15px;

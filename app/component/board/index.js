@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
+import { Scrollbars } from 'react-custom-scrollbars'
 
 import List from 'component/list'
 import style from './board.css'
@@ -92,7 +93,9 @@ export default class Board extends Component {
 			board,
 			list,
 			dispatch,
-			next
+			next,
+			height,
+			width
 		} = this.props
 
 		return (
@@ -100,28 +103,35 @@ export default class Board extends Component {
 				<div className={style.title}>
 					<h1>{board.get('title')}</h1>
 				</div>
-				<div className={style.content}>
-					{board.get('list').map(value => (
-						<List
-							{...this.props}
-							key={value}
-							index={value}
-							list={list.get(value)}
-						/>
-					))}
-					{this.state.isAdding ? (
-						<AddList
-							listShowed={board.get('list').toJS()}
-							cancel={this.cancel}
-							dispatch={dispatch}
-							next={next.get('list')}
-						/>
-					) : (
-						<div onClick={this.add} className={style.new}>
-							<Icon className={style.icon} type="plus"/>Add a list...
-						</div>
-					)}
-				</div>
+				<Scrollbars
+					autoHide
+					autoWidth
+					autoWidthMax={width}
+					style={{height: height - 75}}
+				>
+					<div className={style.content}>
+						{board.get('list').map(value => (
+							<List
+								{...this.props}
+								key={value}
+								index={value}
+								list={list.get(value)}
+							/>
+						))}
+						{this.state.isAdding ? (
+							<AddList
+								listShowed={board.get('list').toJS()}
+								cancel={this.cancel}
+								dispatch={dispatch}
+								next={next.get('list')}
+							/>
+						) : (
+							<div onClick={this.add} className={style.new}>
+								<Icon className={style.icon} type="plus"/>Add a list...
+							</div>
+						)}
+					</div>
+				</Scrollbars>
 			</div>
 		)
 	}

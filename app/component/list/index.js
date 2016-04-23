@@ -99,13 +99,13 @@ export default class List extends Component {
 		return (
 			<div className={style.list}>
 				<div className={style.title}>
-					<h3>{list.get('title')}</h3>
+					<h2>{list.get('title')}</h2>
 				</div>
 				<div className={style.content}>
 					<Scrollbars
 						autoHide
 						autoHeight
-						autoHeightMax={height - 225}
+						autoHeightMax={height - 230}
 						style={{width: 270}}
 					>
 						{list.get('card').map(value => (
