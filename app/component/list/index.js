@@ -39,7 +39,9 @@ class AddCard extends Component {
 
 				card: {
 					[next]: {
-						title: value
+						title: value,
+						tag: [],
+						member: []
 					}
 				}
 			}

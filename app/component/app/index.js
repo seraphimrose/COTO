@@ -5,7 +5,7 @@ import Board from 'component/board'
 import './app.css'
 
 export default (props) => (
-	<div >
+	<div>
 		<Board {...props}/>
 		<div id="mask"></div>
 	</div>
