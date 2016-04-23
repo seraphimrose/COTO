@@ -20,7 +20,13 @@ class AddList extends Component {
 	}
 
 	add() {
-		const { listShowed, next, dispatch, cancel } = this.props
+		const {
+			listShowed,
+			next,
+			dispatch,
+			cancel
+		} = this.props
+
 		const value = this.refs.myInput.value
 		if (value) {
 			const data = {
@@ -82,7 +88,12 @@ export default class Board extends Component {
 	}
 
 	render() {
-		const { board, list, dispatch, next } = this.props
+		const {
+			board,
+			list,
+			dispatch,
+			next
+		} = this.props
 
 		return (
 			<div className={style.board}>

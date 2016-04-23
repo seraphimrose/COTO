@@ -4,7 +4,11 @@ import Tooltip from 'antd/lib/tooltip'
 import style from './card.css'
 
 export default (props) => {
-	const { card, tag, member } = props
+	const { 
+		card,
+		tag, 
+		member 
+	} = props
 
 	return (
 		<div className={style.card}>

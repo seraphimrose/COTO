@@ -20,9 +20,15 @@ class AddCard extends Component {
 	}
 
 	add() {
-		const { cardShowed, index, next, dispatch, cancel } = this.props
-		const value = this.refs.myInput.value
+		const {
+			cardShowed,
+			index,
+			next,
+			dispatch,
+			cancel
+		} = this.props
 
+		const value = this.refs.myInput.value
 		if (value) {
 			const data = {
 				list: {
@@ -81,7 +87,14 @@ export default class List extends Component {
 	}
 
 	render() {
-		const { list, card, dispatch, next, index, height } = this.props
+		const { 
+			list,
+			card,
+			dispatch,
+			next,
+			index, 
+			height 
+		} = this.props
 
 		return (
 			<div className={style.list}>
@@ -92,7 +105,6 @@ export default class List extends Component {
 					<Scrollbars
 						autoHide
 						autoHeight
-						autoHeightMin={50}
 						autoHeightMax={height - 225}
 						style={{width: 270}}
 					>
