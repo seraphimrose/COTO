@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
+import { Scrollbars } from 'react-custom-scrollbars'
 
 import { addCard } from 'action/entity'
 import Card from 'component/card'
@@ -80,7 +81,7 @@ export default class List extends Component {
 	}
 
 	render() {
-		const { list, card, dispatch, next, index } = this.props
+		const { list, card, dispatch, next, index, height } = this.props
 
 		return (
 			<div className={style.list}>
@@ -88,13 +89,21 @@ export default class List extends Component {
 					<h3>{list.get('title')}</h3>
 				</div>
 				<div className={style.content}>
-					{list.get('card').map(value => (
-						<Card
-							{...this.props}
-							key={value}
-							card={card.get(value)}
-						/>
-					))}
+					<Scrollbars
+						autoHide
+						autoHeight
+						autoHeightMin={50}
+						autoHeightMax={height - 225}
+						style={{width: 270}}
+					>
+						{list.get('card').map(value => (
+							<Card
+								{...this.props}
+								key={value}
+								card={card.get(value)}
+							/>
+						))}
+					</Scrollbars>
 					{this.state.isAdding ? (
 						<AddCard
 							cardShowed={list.get('card').toJS()}
