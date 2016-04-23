@@ -82,7 +82,7 @@ export default class Board extends Component {
 	}
 
 	render() {
-		const { board, list, listShowed, dispatch, next } = this.props
+		const { board, list, dispatch, next } = this.props
 
 		return (
 			<div className={style.board}>
@@ -90,16 +90,17 @@ export default class Board extends Component {
 					<h1>{board.get('title')}</h1>
 				</div>
 				<div className={style.content}>
-					{listShowed.map(value => (
+					{board.get('list').map(value => (
 						<List
 							{...this.props}
 							key={value}
+							index={value}
 							list={list.get(value)}
 						/>
 					))}
 					{this.state.isAdding ? (
 						<AddList
-							listShowed={listShowed}
+							listShowed={board.get('list').toJS()}
 							cancel={this.cancel}
 							dispatch={dispatch}
 							next={next.get('list')}

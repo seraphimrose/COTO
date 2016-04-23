@@ -8,5 +8,7 @@ const initialState = fromJS(next)
 
 export default createReducer({
 	[actions.addList]: (state, data) =>
-		state.set('list', (parseInt(data.get('id')) + 1).toString())
+		state.set('list', (parseInt(data.get('id')) + 1).toString()),
+	[actions.addCard]: (state, data) =>
+		state.set('card', (parseInt(data.get('id')) + 1).toString())
 }, initialState)

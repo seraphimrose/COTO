@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
 
+import { addCard } from 'action/entity'
 import Card from 'component/card'
 import style from './list.css'
 
@@ -9,10 +10,41 @@ class AddCard extends Component {
 
 	constructor(props) {
 		super(props)
+		this.add = this.add.bind(this)
+		this.error = this.error.bind(this)
 	}
 
 	componentDidMount() {
 		this.refs.myInput.focus()
+	}
+
+	add() {
+		const { cardShowed, index, next, dispatch, cancel } = this.props
+		const value = this.refs.myInput.value
+
+		if (value) {
+			const data = {
+				list: {
+					[index] : {
+						card: [...cardShowed, next]
+					}
+				},
+
+				card: {
+					[next]: {
+						title: value
+					}
+				}
+			}
+			dispatch(addCard(data))
+			cancel()
+		} else {
+			this.error()
+		}
+	}
+
+	error() {
+		this.refs.myInput.style.border = "1px solid #f08080"
 	}
 
 	render() {
@@ -21,7 +53,7 @@ class AddCard extends Component {
 			<div className={style.add}>
 				<input ref="myInput" type="text" placeholder="title"/>
 				<div className={style.control}>
-					<Button onClick={cancel}
+					<Button onClick={this.add}
 							type="primary" size="small">Add</Button>
 					<Button onClick={cancel}
 							type="ghost" size="small">Cancel</Button>
@@ -48,7 +80,8 @@ export default class List extends Component {
 	}
 
 	render() {
-		const { list, card } = this.props
+		const { list, card, dispatch, next, index } = this.props
+
 		return (
 			<div className={style.list}>
 				<div className={style.title}>
@@ -64,7 +97,11 @@ export default class List extends Component {
 					))}
 					{this.state.isAdding ? (
 						<AddCard
+							cardShowed={list.get('card').toJS()}
+							index={index}
 							cancel={this.cancel}
+							dispatch={dispatch}
+							next={next.get('card')}
 						/>
 					) : (
 						<div onClick={this.add} className={style.new}>

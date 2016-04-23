@@ -7,5 +7,6 @@ import * as actions from 'action/entity'
 const initialState = fromJS(entity)
 
 export default createReducer({
-	[actions.addList]: (state, data) => state.mergeDeep(data)
+	[actions.addList]: (state, data) => state.mergeDeep(data),
+	[actions.addCard]: (state, data) => state.mergeDeep(data)
 }, initialState)

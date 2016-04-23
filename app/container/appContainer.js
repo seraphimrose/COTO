@@ -14,5 +14,5 @@ export default connect(state => ({
 	tag: state.entity.get('tag'),
 	member: state.entity.get('member'),
 	next: state.next,
-	listShowed: state.entity.getIn(['board', 'list']).toJS()
+	listShowed: state.entity.getIn(['board', 'list']).toJS(),
 }))(AppContainer)
