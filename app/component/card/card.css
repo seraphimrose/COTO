@@ -1,4 +1,5 @@
 :local(.card) {
+	position: relative;
 	width: 260px;
 	padding: 5px;
 	margin-bottom: 8px;
@@ -30,6 +31,19 @@
 			}
 			&.tag-yellow {
 				background: #ffd700;
+			}
+		}
+	}
+
+	:local(.control) {
+		position: absolute;
+		top: 3px;
+		right: 5px;
+		color: #ccc;
+		i {
+			cursor: pointer;
+			&:hover {
+				color: #aaa;
 			}
 		}
 	}

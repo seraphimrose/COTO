@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Tooltip from 'antd/lib/tooltip'
+import Icon from 'antd/lib/icon'
 import { DragSource } from 'react-dnd';
 
+import { removeCard } from 'action/entity'
 import style from './card.css'
 
 const cardSource = {
@@ -28,12 +30,20 @@ export default class Card extends Component {
 			card,
 			tag,
 			member,
+			index,
+			listIndex,
 			connectDragSource,
-			isDragging
+			isDragging,
+			dispatch
 		} = this.props
 
 		return connectDragSource(
-			<div className={style.card}>
+			<div
+				style={{
+					transform: isDragging && "rotate(10deg)"
+				}}
+				className={style.card}
+			>
 				<div className={style.tag}>
 					{card.get('tag').map(value => (
 						<Tooltip
@@ -45,6 +55,12 @@ export default class Card extends Component {
 						</span>
 						</Tooltip>
 					))}
+				</div>
+				<div className={style.control}>
+					<Icon
+						type="cross"
+						onClick={() => dispatch(removeCard({listIndex, index}))}
+					/>
 				</div>
 				<div className={style.title}>
 					{card.get('title')}

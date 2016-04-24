@@ -114,6 +114,8 @@ export default class List extends Component {
 							<Card
 								{...this.props}
 								key={value}
+								index={value}
+								listIndex={index}
 								card={card.get(value)}
 							/>
 						))}
