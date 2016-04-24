@@ -111,13 +111,17 @@ export default class List extends Component {
 						style={{width: 270}}
 					>
 						{list.get('card').map(value => (
-							<Card
-								{...this.props}
-								key={value}
-								index={value}
-								listIndex={index}
-								card={card.get(value)}
-							/>
+							value !== 'slot' ? (
+								<Card
+									{...this.props}
+									key={value}
+									index={value}
+									listIndex={index}
+									card={card.get(value)}
+								/>
+							) : (
+								<div className={style.slot}></div>
+							)
 						))}
 					</Scrollbars>
 					{this.state.isAdding ? (

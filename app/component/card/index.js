@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import Tooltip from 'antd/lib/tooltip'
 import Icon from 'antd/lib/icon'
 import { DragSource, DropTarget } from 'react-dnd';
+import { findDOMNode } from 'react-dom'
 
-import { removeCard } from 'action/entity'
+import { removeCard, addSlot, removeSlot } from 'action/entity'
 import style from './card.css'
 
 const cardDragSource = {
@@ -15,7 +16,35 @@ const cardDragSource = {
 }
 
 const cardDropTarget = {
+	hover(props, monitor, component) {
+		if (props.index === monitor.getItem().index) {
+			return ;
+		}
+		const target = findDOMNode(component).getBoundingClientRect();
+		const targetMiddleY = (target.bottom - target.top) / 2;
+		const cursor = monitor.getClientOffset();
 
+		const cur = props.list.get('card')
+		const ind = cur.indexOf(props.index)
+
+		props.board.get('list').forEach(v => {
+			props.dispatch(removeSlot({
+				listIndex: v
+			}))
+		})
+
+		if (cursor.y < targetMiddleY) {
+			props.dispatch(addSlot({
+				listIndex: props.listIndex,
+				'new': cur.splice(ind, 0, 'slot')
+			}))
+		} else {
+			props.dispatch(addSlot({
+				listIndex: props.listIndex,
+				'new': cur.splice(ind + 1, 0, 'slot')
+			}))
+		}
+	}
 }
 
 function dragCollect(connect, monitor) {
@@ -40,6 +69,7 @@ export default class Card extends Component {
 
 	render() {
 		const {
+			list,
 			card,
 			tag,
 			member,
