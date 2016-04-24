@@ -1,25 +1,38 @@
 import React, { Component } from 'react'
 import Tooltip from 'antd/lib/tooltip'
 import Icon from 'antd/lib/icon'
-import { DragSource } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 
 import { removeCard } from 'action/entity'
 import style from './card.css'
 
-const cardSource = {
+const cardDragSource = {
 	beginDrag(props) {
-		return {}
+		return {
+			index: props.index
+		}
 	}
 }
 
-function collect(connect, monitor) {
+const cardDropTarget = {
+
+}
+
+function dragCollect(connect, monitor) {
 	return {
 		connectDragSource: connect.dragSource(),
 		isDragging: monitor.isDragging()
 	}
 }
 
-@DragSource('card', cardSource, collect)
+function dropCollect(connect) {
+	return {
+		connectDropTarget: connect.dropTarget()
+	}
+}
+
+@DropTarget('card', cardDropTarget, dropCollect)
+@DragSource('card', cardDragSource, dragCollect)
 export default class Card extends Component {
 	constructor(props) {
 		super(props)
@@ -33,14 +46,16 @@ export default class Card extends Component {
 			index,
 			listIndex,
 			connectDragSource,
+			connectDropTarget,
 			isDragging,
 			dispatch
 		} = this.props
 
-		return connectDragSource(
+		return connectDropTarget(connectDragSource(
 			<div
 				style={{
-					transform: isDragging && "rotate(10deg)"
+					//transform: isDragging && "rotate(10deg)",
+					display: isDragging && "none"
 				}}
 				className={style.card}
 			>
@@ -78,6 +93,6 @@ export default class Card extends Component {
 					))}
 				</div>
 			</div>
-		)
+		))
 	}
 }
