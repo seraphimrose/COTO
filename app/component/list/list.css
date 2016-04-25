@@ -13,15 +13,6 @@
 		padding-bottom: 5px;
 	}
 
-	:local(.slot) {
-		width: 260px;
-		height: 100px;
-		margin-bottom: 8px;
-		background: #ccc;
-		border-radius: 5px;
-		box-shadow: 1px 1px 1px 1px #777;
-	}
-
 	:local(.new) {
 		width: 260px;
 		padding: 6px;

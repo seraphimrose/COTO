@@ -116,6 +116,7 @@ export default class Board extends Component {
 								key={value}
 								index={value}
 								list={list.get(value)}
+								rawList={list}
 							/>
 						))}
 						{this.state.isAdding ? (

@@ -4,7 +4,7 @@ import Icon from 'antd/lib/icon'
 import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom'
 
-import { removeCard, addSlot, removeSlot } from 'action/entity'
+import { removeCard, moveCard } from 'action/entity'
 import style from './card.css'
 
 const cardDragSource = {
@@ -20,30 +20,31 @@ const cardDropTarget = {
 		if (props.index === monitor.getItem().index) {
 			return ;
 		}
-		const target = findDOMNode(component).getBoundingClientRect();
-		const targetMiddleY = (target.bottom - target.top) / 2;
-		const cursor = monitor.getClientOffset();
 
-		const cur = props.list.get('card')
-		const ind = cur.indexOf(props.index)
+		const target = findDOMNode(component).getBoundingClientRect()
+		const targetMiddleY = target.top + (target.bottom - target.top) / 2;
+		const cursor = monitor.getClientOffset()
 
-		props.board.get('list').forEach(v => {
-			props.dispatch(removeSlot({
-				listIndex: v
-			}))
+		let upFlag
+		if (cursor.y < targetMiddleY) {
+			upFlag = 1
+		} else {
+			upFlag = 0
+		}
+		let fromList
+		props.rawList.forEach((v, k) => {
+			if (v.get('card').indexOf(monitor.getItem().index) !== -1) {
+				fromList = k
+			}
 		})
 
-		if (cursor.y < targetMiddleY) {
-			props.dispatch(addSlot({
-				listIndex: props.listIndex,
-				'new': cur.splice(ind, 0, 'slot')
-			}))
-		} else {
-			props.dispatch(addSlot({
-				listIndex: props.listIndex,
-				'new': cur.splice(ind + 1, 0, 'slot')
-			}))
-		}
+		props.dispatch(moveCard({
+			fromList: fromList,
+			toList: props.listIndex,
+			index: monitor.getItem().index,
+			hoverIndex: props.index,
+			upFlag: upFlag
+		}))
 	}
 }
 
@@ -69,7 +70,6 @@ export default class Card extends Component {
 
 	render() {
 		const {
-			list,
 			card,
 			tag,
 			member,
@@ -84,8 +84,7 @@ export default class Card extends Component {
 		return connectDropTarget(connectDragSource(
 			<div
 				style={{
-					//transform: isDragging && "rotate(10deg)",
-					display: isDragging && "none"
+					opacity: isDragging && 0.5
 				}}
 				className={style.card}
 			>

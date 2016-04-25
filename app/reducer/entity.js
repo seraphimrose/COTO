@@ -11,20 +11,18 @@ export default createReducer({
 	[actions.addCard]: (state, data) => state.mergeDeep(data),
 
 	[actions.removeCard]: (state, data) =>
-		state//.deleteIn(['card', data.get('index')]) // <-- unnecessary?
-			.deleteIn(['list', data.get('listIndex'), 'card',
-				state.getIn(['list', data.get('listIndex'), 'card']).indexOf(data.get('index'))]),
+		state.deleteIn(['list', data.get('listIndex'), 'card',
+			state.getIn(['list', data.get('listIndex'), 'card']).indexOf(data.get('index'))]),
 
-	[actions.addSlot]: (state, data) =>
-		state.setIn(['list', data.get('listIndex'), 'card'], data.get('new')),
-	[actions.removeSlot]: (state, data) => {
-		const index = state.getIn(['list', data.get('listIndex'), 'card']).indexOf('slot')
-		return index !== -1 ? state.deleteIn(['list', data.get('listIndex'), 'card', index]) : state
-	},
-
-
-	[actions.moveCard]: (state, data) =>
-		state.deleteIn(['list', data.get('fromListIndex'), 'card',
-			state.getIn(['list', data.get('fromListIndex'), 'card']).indexOf(data.get('index'))])
-			.setIn(['list', data.get('toListIndex'), 'card'], data.get('new'))
+	[actions.moveCard]: (state, data) => {
+		const sourcePos = state.getIn(['list', data.get('fromList'), 'card']).indexOf(data.get('index'))
+		let insertPos = state.getIn(['list', data.get('toList'), 'card']).indexOf(data.get('hoverIndex'))
+		if (!data.get('upFlag')) {
+			insertPos ++
+		}
+		const newState = state.deleteIn(['list', data.get('fromList'), 'card', sourcePos])
+		const rawCard = newState.getIn(['list', data.get('toList'), 'card'])
+		return newState.setIn(['list', data.get('toList'), 'card'], rawCard.splice(insertPos, 0, data.get('index')))
+	}
+	
 }, initialState)
