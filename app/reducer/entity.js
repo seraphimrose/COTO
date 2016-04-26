@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable'
+import { fromJS, List } from 'immutable'
 import { createReducer } from 'redux-act'
 
 import entity from 'config/entity'
@@ -20,11 +20,21 @@ export default createReducer({
 		const sourcePos = state.getIn(['list', data.get('fromList'), 'card']).indexOf(data.get('index'))
 		let insertPos = state.getIn(['list', data.get('toList'), 'card']).indexOf(data.get('hoverIndex'))
 		if (!data.get('upFlag')) {
-			insertPos ++
+			insertPos++
 		}
 		const newState = state.deleteIn(['list', data.get('fromList'), 'card', sourcePos])
 		const rawCard = newState.getIn(['list', data.get('toList'), 'card'])
 		return newState.setIn(['list', data.get('toList'), 'card'], rawCard.splice(insertPos, 0, data.get('index')))
+	},
+
+	[actions.pushCard]: (state, data) => {
+		if (data.get('fromList') === data.get('toList')) {
+			return state
+		}
+		const sourcePos = state.getIn(['list', data.get('fromList'), 'card']).indexOf(data.get('index'))
+		return state.deleteIn(['list', data.get('fromList'), 'card', sourcePos])
+			.setIn(['list', data.get('toList'), 'card'],
+				state.getIn(['list', data.get('toList'), 'card']).push(data.get('index')))
 	}
-	
+
 }, initialState)

@@ -52,7 +52,6 @@ const cardDropTarget = {
 function dragCollect(connect, monitor) {
 	return {
 		connectDragSource: connect.dragSource(),
-		isDragging: monitor.isDragging()
 	}
 }
 
@@ -78,14 +77,11 @@ export default class Card extends Component {
 			listIndex,
 			connectDragSource,
 			connectDropTarget,
-			isDragging,
 			dispatch
 		} = this.props
 
 		return connectDropTarget(connectDragSource(
-			<div
-				className={style.card}
-			>
+			<div className={style.card}>
 				<div className={style.tag}>
 					{card.get('tag').map(value => (
 						<Tooltip

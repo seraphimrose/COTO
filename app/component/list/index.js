@@ -2,10 +2,34 @@ import React, { Component } from 'react'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
 import { Scrollbars } from 'react-custom-scrollbars'
+import { DropTarget } from 'react-dnd'
 
-import { addCard, removeList } from 'action/entity'
+import { addCard, removeList, pushCard } from 'action/entity'
 import Card from 'component/card'
 import style from './list.css'
+
+const dropTarget = {
+	hover(props, monitor) {
+		let fromList
+		props.rawList.forEach((v, k) => {
+			if (v.get('card').indexOf(monitor.getItem().index) !== -1) {
+				fromList = k
+			}
+		})
+
+		props.dispatch(pushCard({
+			index: monitor.getItem().index,
+			fromList: fromList,
+			toList: props.index
+		}))
+	}
+}
+
+function collect(connect) {
+	return {
+		connectDropTarget: connect.dropTarget()
+	}
+}
 
 class AddCard extends Component {
 
@@ -72,6 +96,25 @@ class AddCard extends Component {
 	}
 }
 
+@DropTarget('card', dropTarget, collect)
+class Add extends Component {
+	constructor(props) {
+		super(props)
+	}
+
+	render() {
+		const {
+			add,
+			connectDropTarget
+		} = this.props
+		return connectDropTarget(
+			<div onClick={add} className={style.new}>
+				<Icon className={style.icon} type="plus" />Add a card...
+			</div>
+		)
+	}
+}
+
 export default class List extends Component {
 	constructor(props) {
 		super(props)
@@ -95,7 +138,8 @@ export default class List extends Component {
 			dispatch,
 			next,
 			index, 
-			height 
+			height,
+			rawList
 		} = this.props
 
 		return (
@@ -135,9 +179,12 @@ export default class List extends Component {
 							next={next.get('card')}
 						/>
 					) : (
-						<div onClick={this.add} className={style.new}>
-							<Icon className={style.icon} type="plus" />Add a card...
-						</div>
+						<Add
+							add={this.add}
+							index={index}
+							rawList={rawList}
+							dispatch={dispatch}
+						/>
 					)}
 				</div>
 			</div>
