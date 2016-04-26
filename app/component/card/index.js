@@ -31,6 +31,7 @@ const cardDropTarget = {
 		} else {
 			upFlag = 0
 		}
+
 		let fromList
 		props.rawList.forEach((v, k) => {
 			if (v.get('card').indexOf(monitor.getItem().index) !== -1) {
@@ -83,9 +84,6 @@ export default class Card extends Component {
 
 		return connectDropTarget(connectDragSource(
 			<div
-				style={{
-					opacity: isDragging && 0.5
-				}}
 				className={style.card}
 			>
 				<div className={style.tag}>

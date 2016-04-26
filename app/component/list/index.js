@@ -3,7 +3,7 @@ import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
 import { Scrollbars } from 'react-custom-scrollbars'
 
-import { addCard } from 'action/entity'
+import { addCard, removeList } from 'action/entity'
 import Card from 'component/card'
 import style from './list.css'
 
@@ -102,6 +102,12 @@ export default class List extends Component {
 			<div className={style.list}>
 				<div className={style.title}>
 					<h2>{list.get('title')}</h2>
+				</div>
+				<div className={style.listControl}>
+					<Icon
+						type="cross"
+						onClick={() => dispatch(removeList({index}))}
+					/>
 				</div>
 				<div className={style.content}>
 					<Scrollbars

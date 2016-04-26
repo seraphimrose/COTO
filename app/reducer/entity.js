@@ -10,6 +10,8 @@ export default createReducer({
 	[actions.addList]: (state, data) => state.mergeDeep(data),
 	[actions.addCard]: (state, data) => state.mergeDeep(data),
 
+	[actions.removeList]: (state, data) =>
+		state.deleteIn(['board', 'list', state.getIn(['board', 'list']).indexOf(data.get('index'))]),
 	[actions.removeCard]: (state, data) =>
 		state.deleteIn(['list', data.get('listIndex'), 'card',
 			state.getIn(['list', data.get('listIndex'), 'card']).indexOf(data.get('index'))]),
