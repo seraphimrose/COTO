@@ -6,7 +6,7 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import List from 'component/list'
 import style from './board.css'
 
-import { addList } from 'action/entity'
+import { addList, editBoardTitle } from 'action/entity'
 
 class AddList extends Component {
 
@@ -71,21 +71,70 @@ class AddList extends Component {
 	}
 }
 
+class Edit extends Component {
+	constructor(props) {
+		super(props)
+		this.confirm = this.confirm.bind(this)
+		this.error = this.error.bind(this)
+	}
+
+	componentDidMount() {
+		this.refs.title.focus()
+	}
+
+	confirm() {
+		if (this.refs.title.value) {
+			this.props.dispatch(editBoardTitle({title: this.refs.title.value}))
+			this.props.cancel()
+		} else {
+			this.error()
+		}
+	}
+
+	error() {
+		this.refs.title.style.border = "1px solid red"
+	}
+
+	render() {
+		const { cancel } = this.props
+
+		return (
+			<div className={style.edit}>
+				<input type="text" ref="title"/>
+				<Icon className="icon icon-ok" type="check"
+					  onClick={this.confirm}/>
+				<Icon className="icon icon-cancel" type="cross"
+					  onClick={cancel}/>
+			</div>
+		)
+	}
+}
+
 export default class Board extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {isAdding: false}
-		this.add = this.add.bind(this)
-		this.cancel = this.cancel.bind(this)
-		
+		this.state = {isAdding: false, isEditing: false}
+		this.addList = this.addList.bind(this)
+		this.cancelAdd = this.cancelAdd.bind(this)
+		this.editTitle = this.editTitle.bind(this)
+		this.cancelEdit = this.cancelEdit.bind(this)
+
 	}
 
-	add() {
+	addList() {
 		this.setState({isAdding: true})
 	}
 
-	cancel() {
+	cancelAdd() {
 		this.setState({isAdding: false})
+	}
+
+	editTitle() {
+		this.setState({isEditing: true})
+	}
+
+	cancelEdit() {
+		this.setState({isEditing: false})
 	}
 
 	render() {
@@ -101,7 +150,17 @@ export default class Board extends Component {
 		return (
 			<div className={style.board}>
 				<div className={style.title}>
-					<h1>{board.get('title')}</h1>
+					{this.state.isEditing ? (
+						<Edit
+							title={board.get('title')}
+							cancel={this.cancelEdit}
+							dispatch={dispatch}
+						/>
+					) : (
+						<h1 onClick={this.editTitle}>
+							{board.get('title')}
+						</h1>
+					)}
 				</div>
 				<Scrollbars
 					autoHide
@@ -122,12 +181,12 @@ export default class Board extends Component {
 						{this.state.isAdding ? (
 							<AddList
 								listShowed={board.get('list').toJS()}
-								cancel={this.cancel}
+								cancel={this.cancelAdd}
 								dispatch={dispatch}
 								next={next.get('list')}
 							/>
 						) : (
-							<div onClick={this.add} className={style.new}>
+							<div onClick={this.addList} className={style.new}>
 								<Icon className={style.icon} type="plus"/>Add a list...
 							</div>
 						)}

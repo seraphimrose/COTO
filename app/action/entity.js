@@ -12,3 +12,5 @@ export const removeCard = createAction("Remove a card", data => fromJS(data))
 export const moveCard = createAction("Move a card", data => fromJS(data))
 
 export const pushCard = createAction("Push a card to end of List", data => fromJS(data))
+
+export const editBoardTitle = createAction("Edit board title", data => fromJS(data))

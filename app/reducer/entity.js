@@ -35,6 +35,8 @@ export default createReducer({
 		return state.deleteIn(['list', data.get('fromList'), 'card', sourcePos])
 			.setIn(['list', data.get('toList'), 'card'],
 				state.getIn(['list', data.get('toList'), 'card']).push(data.get('index')))
-	}
+	},
+	
+	[actions.editBoardTitle]: (state, data) => state.setIn(['board', 'title'], data.get('title'))
 
 }, initialState)
