@@ -5,6 +5,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom'
 
 import { removeCard, moveCard } from 'action/entity'
+import { toggleDetail } from 'action/detail'
 import style from './card.css'
 
 const cardDragSource = {
@@ -100,20 +101,22 @@ export default class Card extends Component {
 						onClick={() => dispatch(removeCard({listIndex, index}))}
 					/>
 				</div>
-				<div className={style.title}>
-					{card.get('title')}
-				</div>
-				<div className={style.hint}></div>
-				<div className={style.member}>
-					{card.get('member').map(value => (
-						<Tooltip
-							key={value}
-							placement="top"
-							title={member.getIn([value, 'name'])}
-						>
-							<img src={member.getIn([value, 'avatar'])} />
-						</Tooltip>
-					))}
+				<div className={style.content} onClick={() => dispatch(toggleDetail({index}))}>
+					<div className={style.title}>
+						{card.get('title')}
+					</div>
+					<div className={style.hint}></div>
+					<div className={style.member}>
+						{card.get('member').map(value => (
+							<Tooltip
+								key={value}
+								placement="top"
+								title={member.getIn([value, 'name'])}
+							>
+								<img src={member.getIn([value, 'avatar'])} />
+							</Tooltip>
+						))}
+					</div>
 				</div>
 			</div>
 		))

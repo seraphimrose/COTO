@@ -19,7 +19,12 @@ export default {
 		1: {
 			title: "testing",
 			tag: ['1', '2'],
-			member: ['1', '2']
+			member: ['1', '2'],
+			dueDate: null,
+			lastUpdate: null,
+			desc: null,
+			checkList: [],
+			activity: []
 		},
 		2: {
 			title: "test233",

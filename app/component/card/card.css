@@ -48,6 +48,10 @@
 		}
 	}
 
+	:local(.content) {
+		overflow: hidden;
+	}
+
 	:local(.title) {
 		padding-left: 2px;
 	}

@@ -9,6 +9,7 @@
     "history": "1.13.1",
     "immutable": "3.7.6",
     "lodash": "^3.10.0",
+    "moment": "^2.13.0",
     "postcss-color-rgba-fallback": "^2.0.0",
     "postcss-pseudoelements": "^3.0.0",
     "querystring": "^0.2.0",
