@@ -9,14 +9,7 @@ import appSelector from 'selector/appSelector'
 
 @DragDropContext(HTML5Backend)
 @createFlexContainer()
-@connect(state => ({
-	board: state.entity.get('board'),
-	list: state.entity.get('list'),
-	card: state.entity.get('card'),
-	tag: state.entity.get('tag'),
-	member: state.entity.get('member'),
-	next: state.next
-}))
+@connect(appSelector)
 export default class AppContainer extends Component {
 	constructor(props) {
 		super(props)

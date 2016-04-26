@@ -6,6 +6,6 @@ export default immutableSelector(
 	entitySelector,
 	nextSelector,
 	(entity, next) => ({
-		entity, next
+		...entity, next
 	})
 )
