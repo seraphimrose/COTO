@@ -13,6 +13,31 @@
 	:local(.title) {
 		padding-bottom: 5px;
 		max-width: 240px;
+		cursor: pointer;
+	}
+
+	:local(.edit) {
+		input {
+			border: 1px solid #e2e4e6;
+			padding: 2px 5px;
+			color: #000;
+			font-size: 14px;
+			width: 150px;
+		}
+
+		.icon {
+			font-size: 14px;
+			font-weight: bold;
+			margin-left: 10px;
+			cursor: pointer;
+
+			&.icon-ok {
+				color: #32cd32;
+			}
+			&.icon-cancel {
+				color: #dc143c;
+			}
+		}
 	}
 
 	:local(.listControl) {

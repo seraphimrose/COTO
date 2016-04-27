@@ -105,7 +105,27 @@ export default class Card extends Component {
 					<div className={style.title}>
 						{card.get('title')}
 					</div>
-					<div className={style.hint}></div>
+					<div className={style.hint}>
+						{card.get('desc') &&
+							(<div>
+								<Icon title="This card has a description" type="exception" />
+							</div>)}
+						{card.get('cmtcnt') &&
+							(<div>
+								<Icon title="Comments" type="message" />
+								{card.get('cmtcnt')}
+							</div>)}
+						{card.get('checkList') &&
+							(<div>
+								<Icon title="CheckList Items" type="bars" />
+								{card.get('checkFinish') + "/" + card.get('checkNum')}
+							</div>)}
+						{card.get('dueDate') &&
+							(<div>
+								<Icon title="Due Date" type="clock-circle-o" />
+								{card.get('dueDate')}
+							</div>)}
+					</div>
 					<div className={style.member}>
 						{card.get('member').map(value => (
 							<Tooltip

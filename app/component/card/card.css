@@ -73,9 +73,20 @@
 
 	:local(.hint) {
 		float: left;
+		overflow: hidden;
+		& > div {
+			float: left;
+			margin: 2px 5px;
+			font-size: 14px;
+			color: #9a9a9a;
+		}
+		i {
+			margin-right: 2px;
+		}
 	}
 
 	:local(.member) {
+		float: right;
 		img {
 			float: right;
 			width: 35px;

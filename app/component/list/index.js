@@ -4,7 +4,7 @@ import Button from 'antd/lib/button'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { DropTarget } from 'react-dnd'
 
-import { addCard, removeList, pushCard } from 'action/entity'
+import { addCard, removeList, pushCard, editListTitle } from 'action/entity'
 import Card from 'component/card'
 import style from './list.css'
 
@@ -115,12 +115,65 @@ class Add extends Component {
 	}
 }
 
+class Edit extends Component {
+	constructor(props) {
+		super(props)
+		this.confirm = this.confirm.bind(this)
+		this.error = this.error.bind(this)
+	}
+
+	componentDidMount() {
+		this.refs.title.focus()
+	}
+
+	confirm() {
+		if (this.refs.title.value) {
+			this.props.dispatch(editListTitle({
+				title: this.refs.title.value,
+				index: this.props.index
+			}))
+			this.props.cancel()
+		} else {
+			this.error()
+		}
+	}
+
+	error() {
+		this.refs.title.style.border = "1px solid red"
+	}
+
+	render() {
+		const { cancel } = this.props
+
+		return (
+			<div className={style.edit}>
+				<input type="text" ref="title"/>
+				<Icon className="icon icon-ok" type="check"
+					  onClick={this.confirm}/>
+				<Icon className="icon icon-cancel" type="cross"
+					  onClick={cancel}/>
+			</div>
+		)
+	}
+}
+
 export default class List extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {isAdding: false}
+		this.state = {isAdding: false, isEditing: false}
 		this.add = this.add.bind(this)
 		this.cancel = this.cancel.bind(this)
+		this.editTitle = this.editTitle.bind(this)
+		this.cancelEdit = this.cancelEdit.bind(this)
+
+	}
+
+	editTitle() {
+		this.setState({isEditing: true})
+	}
+
+	cancelEdit() {
+		this.setState({isEditing: false})
 	}
 
 	add() {
@@ -145,7 +198,19 @@ export default class List extends Component {
 		return (
 			<div className={style.list}>
 				<div className={style.title}>
-					<h2>{list.get('title')}</h2>
+					{this.state.isEditing ? (
+						<Edit
+							title={list.get('title')}
+							cancel={this.cancelEdit}
+							dispatch={dispatch}
+							index={index}
+						/>
+					) : (
+						<h2 onClick={this.editTitle}>
+							{list.get('title')}
+						</h2>
+					)}
+
 				</div>
 				<div className={style.listControl}>
 					<Icon

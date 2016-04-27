@@ -15,6 +15,10 @@
 		margin-bottom: 10px;
 	}
 
+	h3 {
+		margin-top: 15px;
+	}
+
 	:local(.header) {
 		margin-left: 50px;
 		position: relative;
@@ -23,7 +27,7 @@
 			position: absolute;
 			font-size: 18px;
 			font-weight: bold;
-			top: 10px;
+			top: 5px;
 			right: 10px;
 			:local(.icon) {
 				color: #adadad;
@@ -88,6 +92,7 @@
 				.tag {
 					float: left;
 					color: #fff;
+					font-size: 15px;
 					padding: 5px 10px;
 					margin-right: 4px;
 					border-radius: 3px;
@@ -176,15 +181,16 @@
 		float: left;
 		width: 140px;
 		& > div {
+			font-size: 16px;
 			width: 130px;
-			padding: 7px;
+			padding: 10px;
 			background: #fff;
 			color: #000;
 			border: 1px #e2e4e6 solid;
-			margin-top: 5px;
+			margin-top: 10px;
 		}
 		i {
-			font-size: 16px;
+			font-size: 18px;
 			color: #555;
 			margin-right: 3px;
 		}
