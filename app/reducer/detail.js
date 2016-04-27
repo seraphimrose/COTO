@@ -4,7 +4,8 @@ import * as actions from 'action/detail'
 
 const initialState = fromJS({
 	showDetail: false,
-	detailIndex: null
+	detailIndex: null,
+	user: "2"
 })
 
 export default createReducer({

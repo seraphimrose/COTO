@@ -20,9 +20,9 @@ export default {
 			title: "testing",
 			tag: ['1', '2'],
 			member: ['1', '2'],
-			dueDate: null,
-			lastUpdate: null,
-			desc: null,
+			dueDate: "2016-04-29",
+			lastUpdate: "2016-04-27 10:12:44",
+			desc: "测试测试",
 			checkList: [],
 			activity: []
 		},

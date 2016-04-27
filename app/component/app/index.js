@@ -2,6 +2,7 @@ import React from 'react'
 
 import Board from 'component/board'
 import Detail from 'component/detail'
+import { toggleDetail } from 'action/detail'
 
 import './app.css'
 
@@ -11,11 +12,13 @@ export default (props) => (
 		{props.showDetail && (
 			<div>
 				<Detail
+					user={props.user}
 					card={props.card.get(props.detailIndex)}
 					tag={props.tag}
 					member={props.member}
+					dispatch={props.dispatch}
 				/>
-				<div id="mask"></div>
+				<div id="mask" onClick={() => props.dispatch(toggleDetail({}))}></div>
 			</div>
 		)}
 	</div>

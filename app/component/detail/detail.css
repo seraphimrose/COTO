@@ -1,6 +1,200 @@
 :local(.detail) {
 	position: absolute;
-	left: 0;
-	top: 0;
+	left: 265px;
+	top: 45px;
+	width: 730px;
+	height: 520px;
 	z-index: 100;
+	background: #edeff0;
+	color: #000;
+	border-radius: 5px;
+	padding: 10px;
+	overflow: hidden;
+
+	h2, h3 {
+		margin-bottom: 10px;
+	}
+
+	:local(.header) {
+		margin-left: 50px;
+		position: relative;
+
+		:local(.control) {
+			position: absolute;
+			font-size: 18px;
+			font-weight: bold;
+			top: 10px;
+			right: 10px;
+			:local(.icon) {
+				color: #adadad;
+				cursor: pointer;
+				&:hover {
+					color: #777;
+				}
+			}
+		}
+	}
+
+	:local(.main) {
+		float: left;
+		width: 520px;
+		margin-left: 50px;
+		:local(.feature) {
+			overflow: hidden;
+			& > div {
+				float: left;
+				margin-right: 50px;
+				min-height: 70px;
+				:local(.label) {
+					font-size: 14px;
+					color: #959595;
+					margin-bottom: 5px;
+				}
+			}
+
+			:local(.member) {
+				overflow: hidden;
+				img {
+					float: left;
+					height: 30px;
+					width: 30px;
+					margin-right: 3px;
+					border-radius: 1px;
+				}
+				.icon-add {
+					float: left;
+					font-size: 30px;
+					margin-left: 5px;
+					color: #aaa;
+					cursor: pointer;
+					&:hover {
+						color: #777;
+					}
+				}
+			}
+
+			:local(.tag) {
+				overflow: hidden;
+				.icon-add {
+					float: left;
+					font-size: 30px;
+					margin-left: 5px;
+					color: #aaa;
+					cursor: pointer;
+					&:hover {
+						color: #777;
+					}
+				}
+				.tag {
+					float: left;
+					color: #fff;
+					padding: 5px 10px;
+					margin-right: 4px;
+					border-radius: 3px;
+					text-shadow: 0 0 5px rgba(0,0,0,.2),0 0 2px #000;
+
+					&.tag-red {
+						background: #eb5a46;
+					}
+					&.tag-blue {
+						background: #0079bf;
+					}
+					&.tag-yellow {
+						background: #f2d600;
+					}
+					&.tag-green {
+						background: #61bd4f;
+					}
+					&.tag-orange {
+						background: #df9540;
+					}
+					&.tag-purple {
+						background: #c377e0;
+					}
+					&.tag-pink {
+						background: #ff80ce;
+					}
+					&.tag-black {
+						background: #4d4d4d;
+					}
+				}
+			}
+
+			:local(.dueDate) .dueDate {
+				padding: 5px 0;
+				background: #e2e4e6;
+				border-radius: 3px;
+				width: 130px;
+				text-align: center;
+			}
+
+			:local(.lastUpdate) .lastUpdate {
+				padding: 5px 0;
+				background: #e2e4e6;
+				border-radius: 3px;
+				width: 180px;
+				text-align: center;
+			}
+
+			:local(.desc) {
+				width: 520px;
+			}
+		}
+
+		:local(.checkList) {
+			position: relative;
+		}
+
+		:local(.comment) {
+			position: relative;
+			textarea {
+				resize: none;
+				width: 500px;
+				height: 75px;
+				max-width: 500px;
+				max-height: 75px;
+				border: 1px #e2e4e6 solid;
+				border-radius: 3px;
+				box-shadow: 0 0 2px 2px #e2e4e6;
+			}
+			.user {
+				position: absolute;
+				top: 31px;
+				left: -40px;
+				width: 30px;
+				height: 30px;
+				border-radius: 1px;
+			}
+		}
+
+		:local(.activity) {
+			position: relative;
+		}
+	}
+
+	:local(.sider) {
+		float: left;
+		width: 140px;
+		& > div {
+			width: 130px;
+			padding: 7px;
+			background: #fff;
+			color: #000;
+			border: 1px #e2e4e6 solid;
+			margin-top: 5px;
+		}
+		i {
+			font-size: 16px;
+			color: #555;
+			margin-right: 3px;
+		}
+	}
+
+	:local(.hintIcon) {
+		position: absolute;
+		color: #999;
+		font-size: 20px;
+		left: -35px;
+		top: 3px;
+	}
 }
