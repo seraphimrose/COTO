@@ -23,7 +23,6 @@ export default {
 			dueDate: "2016-04-29",
 			lastUpdate: "2016-04-27 10:12:44",
 			desc: "测试测试",
-			activity: []
 		},
 		2: {
 			title: "test233",

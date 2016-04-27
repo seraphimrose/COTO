@@ -210,7 +210,6 @@ export default class List extends Component {
 							{list.get('title')}
 						</h2>
 					)}
-
 				</div>
 				<div className={style.listControl}>
 					<Icon

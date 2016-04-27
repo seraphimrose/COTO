@@ -41,6 +41,6 @@ export default createReducer({
 		
 	[actions.editListTitle]: (state, data) => state.setIn(['list', data.get('index'), 'title'], data.get('title')),
 	
-	[actions.editCardTitle]: (state, data) => state.setIn(['board', data.get('index'), 'title'], data.get('title'))
+	[actions.editCardTitle]: (state, data) => state.setIn(['card', data.get('index'), 'title'], data.get('title'))
 
 }, initialState)

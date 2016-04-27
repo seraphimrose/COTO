@@ -14,6 +14,7 @@ export default (props) => (
 				<Detail
 					user={props.user}
 					card={props.card.get(props.detailIndex)}
+					index={props.detailIndex}
 					tag={props.tag}
 					member={props.member}
 					dispatch={props.dispatch}
