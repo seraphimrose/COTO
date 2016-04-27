@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
 import Tooltip from 'antd/lib/tooltip'
+import Popover from 'antd/lib/popover'
 
 import { toggleDetail } from 'action/detail'
-import { editCardTitle } from 'action/entity'
+import { editCardTitle, addMember, addTag } from 'action/entity'
 
 import style from './detail.css'
 
@@ -56,6 +57,8 @@ export default class Detail extends Component {
 		this.state = {isEditing: false}
 		this.editTitle = this.editTitle.bind(this)
 		this.cancelEdit = this.cancelEdit.bind(this)
+		this.addMembers = this.addMembers.bind(this)
+		this.addTags = this.addTags.bind(this)
 	}
 
 	editTitle() {
@@ -65,7 +68,47 @@ export default class Detail extends Component {
 	cancelEdit() {
 		this.setState({isEditing: false})
 	}
-	
+
+	addMembers(e) {
+		const {
+			dispatch,
+			card,
+			index,
+			member
+		} = this.props
+
+		const key = e.target.id.split('-')[1]
+
+		let members  = card.get('member').toJS()
+		if (members.indexOf(key) !== -1) {
+			members.splice(members.indexOf(key), 1)
+		} else {
+			members.push(key)
+		}
+
+		dispatch(addMember({index, members}))
+	}
+
+	addTags(e) {
+		const {
+			dispatch,
+			card,
+			index,
+			tag
+		} = this.props
+
+		const key = e.target.id.split('-')[1]
+
+		let tags  = card.get('tag').toJS()
+		if (tags.indexOf(key) !== -1) {
+			tags.splice(tags.indexOf(key), 1)
+		} else {
+			tags.push(key)
+		}
+
+		dispatch(addTag({index, tags}))
+	}
+
 	render() {
 		const {
 			card,
@@ -75,6 +118,40 @@ export default class Detail extends Component {
 			dispatch,
 			index
 		} = this.props
+
+		const Members = (
+			<div>
+				{member.map((v, k) => (
+					<div className="wrapper" key={k}>
+						<img
+							id={"member-" + k}
+							onClick={this.addMembers}
+							src={v.get('avatar')}
+						/>
+						{card.get('member').indexOf(k) !== -1
+						&& (<Icon className="selected" type="check-circle" />)}
+					</div>
+				))}
+			</div>
+		)
+
+		const Tags = (
+			<div>
+				{tag.map((v, k) => (
+					<div className="wrapper" key={k}>
+						<div
+							id={"tag-" + k}
+							className={"tag tag-" + v.get('color')}
+							onClick={this.addTags}
+						>
+							{v.get('title')}
+						</div>
+						{card.get('tag').indexOf(k) !== -1
+						&& (<Icon className="selected" type="check-circle" />)}
+					</div>
+				))}
+			</div>
+		)
 
 		return (
 			<div className={style.detail}>
@@ -105,7 +182,7 @@ export default class Detail extends Component {
 				<div className={style.content}>
 					<div className={style.main}>
 						<div className={style.feature}>
-							{card.get('member') && (
+							{!card.get('member').isEmpty() && (
 								<div className={style.member}>
 									<div className={style.label}>Members</div>
 									{card.get('member').map(v => (
@@ -117,19 +194,35 @@ export default class Detail extends Component {
 											<img src={member.getIn([v, 'avatar'])} />
 										</Tooltip>
 									))}
-									<Icon className="icon-add" type="plus-square" />
+									<Popover
+										overlay={Members}
+										overlayClassName={style.members}
+										title="Members"
+										placement="bottom"
+										trigger="click"
+									>
+										<Icon className="icon-add" type="plus-square" />
+									</Popover>
 								</div>
 							)}
-							{card.get('tag') && (
+							{!card.get('tag').isEmpty() && (
 								<div className={style.tag}>
-									<div className={style.label}>Labels</div>
+									<div className={style.label}>Tags</div>
 									{card.get('tag').map(v => (
 										<div key={v}
 											 className={"tag tag-" + tag.getIn([v, 'color'])}>
 											{tag.getIn([v, 'title'])}
 										</div>
 									))}
-									<Icon className="icon-add" type="plus-square" />
+									<Popover
+										overlay={Tags}
+										overlayClassName={style.tags}
+										title="Tags"
+										placement="rightTop"
+										trigger="click"
+									>
+										<Icon className="icon-add" type="plus-square" />
+									</Popover>
 								</div>
 							)}
 							{card.get('dueDate') && (
@@ -178,11 +271,28 @@ export default class Detail extends Component {
 						)}
 					</div>
 					<div className={style.sider}>
-						<div><Icon type="team"/>Members</div>
-						<div><Icon type="tags-o"/>Labels</div>
-						<div><Icon type="book"/>CheckList</div>
-						<div><Icon type="clock-circle-o"/>Due Date</div>
-						<div><Icon type="edit"/>Description</div>
+						<Popover
+							overlay={Members}
+							overlayClassName={style.members}
+							title="Members"
+							placement="left"
+							trigger="click"
+						>
+							<div className="item"><Icon type="team"/>Members</div>
+						</Popover>
+						<Popover
+							overlay={Tags}
+							overlayClassName={style.tags}
+							title="Tags"
+							placement="leftTop"
+							trigger="click"
+						>
+							<div className="item"><Icon type="tags-o"/>Tags</div>
+						</Popover>
+
+						<div className="item"><Icon type="book"/>CheckList</div>
+						<div className="item"><Icon type="clock-circle-o"/>Due Date</div>
+						<div className="item"><Icon type="edit"/>Description</div>
 					</div>
 				</div>
 			</div>

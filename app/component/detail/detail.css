@@ -1,7 +1,7 @@
 :local(.detail) {
 	position: absolute;
 	left: 265px;
-	top: 45px;max-
+	top: 45px;
 	width: 730px;
 	height: 520px;
 	z-index: 100;
@@ -21,11 +21,11 @@
 
 	:local(.header) {
 		margin-left: 50px;
-		max-width: 300px;
 		position: relative;
 
 		:local(.title) {
 			cursor: pointer;
+			max-width: 300px;
 		}
 		:local(.edit) {
 			input {
@@ -92,6 +92,7 @@
 					height: 30px;
 					width: 30px;
 					margin-right: 3px;
+					border: 1px solid #aaa;
 					border-radius: 1px;
 				}
 				.icon-add {
@@ -209,7 +210,7 @@
 	:local(.sider) {
 		float: left;
 		width: 140px;
-		& > div {
+		.item {
 			font-size: 16px;
 			width: 130px;
 			padding: 10px;
@@ -236,5 +237,87 @@
 		font-size: 20px;
 		left: -35px;
 		top: 3px;
+	}
+}
+
+
+:local(.members) {
+	.wrapper {
+		display: inline-block;
+		position: relative;
+		margin-right: 3px;
+
+		img {
+			width: 30px;
+			height: 30px;
+			border: 1px solid #aaa;
+			border-radius: 1px;
+			cursor: pointer;
+		}
+		.selected {
+			position: absolute;
+			right: -3px;
+			top: -3px;
+			font-size: 12px;
+			color: #61bd4f;
+		}
+	}
+}
+
+:local(.tags) {
+	.wrapper {
+		position: relative;
+		margin-right: 3px;
+
+		.tag {
+			width: 130px;
+			padding: 3px 5px;
+			margin-bottom: 5px;
+			border-radius: 3px;
+			cursor: pointer;
+			color: #fff;
+			text-shadow: 0 0 5px rgba(0, 0, 0, .2), 0 0 2px #000;
+
+			&.tag-red {
+				background: #eb5a46;
+			}
+
+			&.tag-blue {
+				background: #0079bf;
+			}
+
+			&.tag-yellow {
+				background: #f2d600;
+			}
+
+			&.tag-green {
+				background: #61bd4f;
+			}
+
+			&.tag-orange {
+				background: #df9540;
+			}
+
+			&.tag-purple {
+				background: #c377e0;
+			}
+
+			&.tag-pink {
+				background: #ff80ce;
+			}
+
+			&.tag-black {
+				background: #4d4d4d;
+			}
+
+		}
+
+		.selected {
+			position: absolute;
+			top: 2px;
+			right: -10px;
+			font-size: 14px;
+			color: #61bd4f;
+		}
 	}
 }

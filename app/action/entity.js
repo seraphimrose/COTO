@@ -18,3 +18,7 @@ export const editBoardTitle = createAction("Edit board title", data => fromJS(da
 export const editListTitle = createAction("Edit list title", data => fromJS(data))
 
 export const editCardTitle = createAction("Edit card title", data => fromJS(data))
+
+export const addMember = createAction("Add members to card", data => fromJS(data))
+
+export const addTag = createAction("Add tags to card", data => fromJS(data))

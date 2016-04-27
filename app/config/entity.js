@@ -54,11 +54,27 @@ export default {
 	member: {
 		1: {
 			name: 'Sera',
-			avatar: 'static/img/avatar3.jpg'
+			avatar: 'static/img/avatar1.jpg'
 		},
 		2: {
-			name: 'Baka',
+			name: 'Diane',
+			avatar: 'static/img/avatar2.jpg'
+		},
+		3: {
+			name: 'Merlin',
+			avatar: 'static/img/avatar3.jpg'
+		},
+		4: {
+			name: 'Escanor',
 			avatar: 'static/img/avatar4.jpg'
+		},
+		5: {
+			name: 'Meliodas',
+			avatar: 'static/img/avatar5.jpg'
+		},
+		6: {
+			name: 'King',
+			avatar: 'static/img/avatar6.jpg'
 		}
 	}
 }
