@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
+import moment from 'moment'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { DropTarget } from 'react-dnd'
 
+
+import Now from 'api/getNow'
 import { addCard, removeList, pushCard, editListTitle } from 'action/entity'
 import { editingListTitle } from 'action/detail'
 
@@ -67,7 +70,8 @@ class AddCard extends Component {
 					[next]: {
 						title: value,
 						tag: [],
-						member: []
+						member: [],
+						lastUpdate: Now()
 					}
 				}
 			}

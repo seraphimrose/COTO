@@ -182,6 +182,7 @@
 						height: 75px;
 						max-width: 500px;
 						max-height: 75px;
+						padding: 5px;
 						border: 1px #e2e4e6 solid;
 						border-radius: 3px;
 						box-shadow: 0 0 2px 2px #e2e4e6;
@@ -215,6 +216,7 @@
 				height: 75px;
 				max-width: 500px;
 				max-height: 75px;
+				padding: 5px;
 				border: 1px #e2e4e6 solid;
 				border-radius: 3px;
 				box-shadow: 0 0 2px 2px #e2e4e6;
