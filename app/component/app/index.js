@@ -18,6 +18,7 @@ export default (props) => (
 					tag={props.tag}
 					member={props.member}
 					dispatch={props.dispatch}
+					tempCardTitle={props.tempCardTitle}
 				/>
 				<div id="mask" onClick={() => props.dispatch(toggleDetail({}))}></div>
 			</div>

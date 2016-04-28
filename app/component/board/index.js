@@ -7,6 +7,7 @@ import List from 'component/list'
 import style from './board.css'
 
 import { addList, editBoardTitle } from 'action/entity'
+import { editingBoardTitle } from 'action/detail'
 
 class AddList extends Component {
 
@@ -76,10 +77,15 @@ class Edit extends Component {
 		super(props)
 		this.confirm = this.confirm.bind(this)
 		this.error = this.error.bind(this)
+		this.change = this.change.bind(this)
 	}
 
 	componentDidMount() {
 		this.refs.title.focus()
+	}
+
+	change() {
+		this.props.dispatch(editingBoardTitle(this.refs.title.value))
 	}
 
 	confirm() {
@@ -96,11 +102,19 @@ class Edit extends Component {
 	}
 
 	render() {
-		const { cancel } = this.props
+		const {
+			cancel,
+			tempTitle
+		} = this.props
 
 		return (
 			<div className={style.edit}>
-				<input type="text" ref="title"/>
+				<input
+					type="text"
+					ref="title"
+					value={tempTitle}
+					onChange={this.change}
+				/>
 				<Icon className="icon icon-ok" type="check"
 					  onClick={this.confirm}/>
 				<Icon className="icon icon-cancel" type="cross"
@@ -130,6 +144,7 @@ export default class Board extends Component {
 	}
 
 	editTitle() {
+		this.props.dispatch(editingBoardTitle(this.props.board.get('title')))
 		this.setState({isEditing: true})
 	}
 
@@ -144,7 +159,8 @@ export default class Board extends Component {
 			dispatch,
 			next,
 			height,
-			width
+			width,
+			tempBoardTitle
 		} = this.props
 
 		return (
@@ -155,6 +171,7 @@ export default class Board extends Component {
 							title={board.get('title')}
 							cancel={this.cancelEdit}
 							dispatch={dispatch}
+							tempTitle={tempBoardTitle}
 						/>
 					) : (
 						<h1 onClick={this.editTitle}>

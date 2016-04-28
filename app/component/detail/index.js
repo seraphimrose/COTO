@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
 import Tooltip from 'antd/lib/tooltip'
 import Popover from 'antd/lib/popover'
+import DatePicker from 'antd/lib/date-picker'
 
-import { toggleDetail } from 'action/detail'
-import { editCardTitle, addMember, addTag } from 'action/entity'
+import { toggleDetail, editingCardTitle } from 'action/detail'
+import { editCardTitle, addMember, addTag, changeDueDate } from 'action/entity'
 
 import style from './detail.css'
 
@@ -14,6 +16,7 @@ class Edit extends Component {
 		super(props)
 		this.confirm = this.confirm.bind(this)
 		this.error = this.error.bind(this)
+		this.change = this.change.bind(this)
 	}
 
 	componentDidMount() {
@@ -36,12 +39,24 @@ class Edit extends Component {
 		this.refs.title.style.border = "1px solid red"
 	}
 
+	change() {
+		this.props.dispatch(editingCardTitle(this.refs.title.value))
+	}
+
 	render() {
-		const { cancel } = this.props
+		const {
+			cancel,
+			tempTitle
+		} = this.props
 
 		return (
 			<div className={style.edit}>
-				<input type="text" ref="title"/>
+				<input
+					type="text"
+					ref="title"
+					value={tempTitle}
+					onChange={this.change}
+				/>
 				<Icon className="icon icon-ok" type="check"
 					  onClick={this.confirm}/>
 				<Icon className="icon icon-cancel" type="cross"
@@ -59,10 +74,14 @@ export default class Detail extends Component {
 		this.cancelEdit = this.cancelEdit.bind(this)
 		this.addMembers = this.addMembers.bind(this)
 		this.addTags = this.addTags.bind(this)
+		this.addDueDate = this.addDueDate.bind(this)
+		this.cancelDueDate = this.cancelDueDate.bind(this)
+		this.dueDateChange = this.dueDateChange.bind(this)
 	}
 
 	editTitle() {
 		this.setState({isEditing: true})
+		this.props.dispatch(editingCardTitle(this.props.card.get('title')))
 	}
 
 	cancelEdit() {
@@ -109,6 +128,39 @@ export default class Detail extends Component {
 		dispatch(addTag({index, tags}))
 	}
 
+	addDueDate() {
+		const dueDate = moment().format().slice(0, 10)
+		const {
+			dispatch,
+			index,
+			card
+		} = this.props
+
+		if (!card.get('dueDate')) {
+			dispatch(changeDueDate({index, dueDate}))
+		}
+	}
+
+	cancelDueDate() {
+		const {
+			dispatch,
+			index
+		} = this.props
+
+		dispatch(changeDueDate({index, dueDate: null}))
+	}
+
+
+	dueDateChange(value) {
+		const dueDate = moment(value).format().slice(0, 10)
+		const {
+			dispatch,
+			index
+		} = this.props
+
+		dispatch(changeDueDate({index, dueDate}))
+	}
+
 	render() {
 		const {
 			card,
@@ -116,7 +168,8 @@ export default class Detail extends Component {
 			tag,
 			user,
 			dispatch,
-			index
+			index,
+			tempCardTitle
 		} = this.props
 
 		const Members = (
@@ -164,6 +217,7 @@ export default class Detail extends Component {
 								cancel={this.cancelEdit}
 								dispatch={dispatch}
 								index={index}
+								tempTitle={tempCardTitle}
 							/>
 						) : (
 							<h2 onClick={this.editTitle}>
@@ -227,8 +281,17 @@ export default class Detail extends Component {
 							)}
 							{card.get('dueDate') && (
 								<div className={style.dueDate}>
-									<div className={style.label}>Due Date</div>
-									<div className="dueDate">{card.get('dueDate')}</div>
+									<div className={style.label}>
+										Due Date
+										<span
+											className="cancel"
+											onClick={this.cancelDueDate}
+										>cancel</span>
+									</div>
+									<DatePicker
+										defaultValue={card.get('dueDate')}
+										onChange={this.dueDateChange}
+									/>
 								</div>
 							)}
 							{card.get('lastUpdate') && (
@@ -291,7 +354,7 @@ export default class Detail extends Component {
 						</Popover>
 
 						<div className="item"><Icon type="book"/>CheckList</div>
-						<div className="item"><Icon type="clock-circle-o"/>Due Date</div>
+						<div className="item" onClick={this.addDueDate}><Icon type="clock-circle-o"/>Due Date</div>
 						<div className="item"><Icon type="edit"/>Description</div>
 					</div>
 				</div>

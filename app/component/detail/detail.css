@@ -155,12 +155,14 @@
 				}
 			}
 
-			:local(.dueDate) .dueDate {
-				padding: 5px 0;
-				background: #e2e4e6;
-				border-radius: 3px;
-				width: 110px;
-				text-align: center;
+			:local(.dueDate) .cancel {
+				padding: 1px 5px;
+				background: #eb5a46;
+				color: #fff;
+				font-size: 12px;
+				border-radius: 5px;
+				margin-left: 10px;
+				cursor: pointer;
 			}
 
 			:local(.lastUpdate) .lastUpdate {

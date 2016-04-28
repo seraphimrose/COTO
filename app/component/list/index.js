@@ -5,6 +5,8 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import { DropTarget } from 'react-dnd'
 
 import { addCard, removeList, pushCard, editListTitle } from 'action/entity'
+import { editingListTitle } from 'action/detail'
+
 import Card from 'component/card'
 import style from './list.css'
 
@@ -120,6 +122,7 @@ class Edit extends Component {
 		super(props)
 		this.confirm = this.confirm.bind(this)
 		this.error = this.error.bind(this)
+		this.change = this.change.bind(this)
 	}
 
 	componentDidMount() {
@@ -138,16 +141,28 @@ class Edit extends Component {
 		}
 	}
 
+	change() {
+		this.props.dispatch(editingListTitle(this.refs.title.value))
+	}
+
 	error() {
 		this.refs.title.style.border = "1px solid red"
 	}
 
 	render() {
-		const { cancel } = this.props
+		const {
+			cancel,
+			tempTitle
+		} = this.props
 
 		return (
 			<div className={style.edit}>
-				<input type="text" ref="title"/>
+				<input
+					type="text"
+					ref="title"
+					value={tempTitle}
+					onChange={this.change}
+				/>
 				<Icon className="icon icon-ok" type="check"
 					  onClick={this.confirm}/>
 				<Icon className="icon icon-cancel" type="cross"
@@ -165,11 +180,11 @@ export default class List extends Component {
 		this.cancel = this.cancel.bind(this)
 		this.editTitle = this.editTitle.bind(this)
 		this.cancelEdit = this.cancelEdit.bind(this)
-
 	}
 
 	editTitle() {
 		this.setState({isEditing: true})
+		this.props.dispatch(editingListTitle(this.props.list.get('title')))
 	}
 
 	cancelEdit() {
@@ -192,7 +207,8 @@ export default class List extends Component {
 			next,
 			index, 
 			height,
-			rawList
+			rawList,
+			tempListTitle
 		} = this.props
 
 		return (
@@ -204,6 +220,7 @@ export default class List extends Component {
 							cancel={this.cancelEdit}
 							dispatch={dispatch}
 							index={index}
+							tempTitle={tempListTitle}
 						/>
 					) : (
 						<h2 onClick={this.editTitle}>
