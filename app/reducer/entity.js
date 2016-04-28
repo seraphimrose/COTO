@@ -44,4 +44,6 @@ export default createReducer({
 	[actions.addMember]: (state, data) =>  state.setIn(['card', data.get('index'), 'member'], data.get('members')),
 	[actions.addTag]: (state, data) =>  state.setIn(['card', data.get('index'), 'tag'], data.get('tags')),
 	[actions.changeDueDate]: (state, data) => state.setIn(['card', data.get('index'), 'dueDate'], data.get('dueDate')),
+	
+	[actions.editDesc] : (state, data) => state.setIn(['card', data.get('index'), 'desc'], data.get('desc')),
 }, initialState)

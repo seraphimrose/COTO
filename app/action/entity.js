@@ -24,3 +24,5 @@ export const addMember = createAction("Add members to card", data => fromJS(data
 export const addTag = createAction("Add tags to card", data => fromJS(data))
 
 export const changeDueDate = createAction("Change due date", data => fromJS(data))
+
+export const editDesc = createAction("Edit the description", data => fromJS(data))

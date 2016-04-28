@@ -3,7 +3,6 @@
 	left: 265px;
 	top: 45px;
 	width: 730px;
-	height: 520px;
 	z-index: 100;
 	background: #edeff0;
 	color: #000;
@@ -175,6 +174,32 @@
 
 			:local(.desc) {
 				width: 520px;
+
+				:local(.editDesc) {
+					textarea {
+						resize: none;
+						width: 500px;
+						height: 75px;
+						max-width: 500px;
+						max-height: 75px;
+						border: 1px #e2e4e6 solid;
+						border-radius: 3px;
+						box-shadow: 0 0 2px 2px #e2e4e6;
+					}
+
+					button {
+						margin: 5px 10px 0 0;
+					}
+				}
+
+				i {
+					margin-left: 5px;
+					cursor: pointer;
+				}
+
+				.delete {
+					color: #eb5a46;
+				}
 			}
 		}
 

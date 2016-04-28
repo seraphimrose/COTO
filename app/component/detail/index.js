@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Scrollbars } from 'react-custom-scrollbars'
 import moment from 'moment'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
@@ -6,8 +7,8 @@ import Tooltip from 'antd/lib/tooltip'
 import Popover from 'antd/lib/popover'
 import DatePicker from 'antd/lib/date-picker'
 
-import { toggleDetail, editingCardTitle } from 'action/detail'
-import { editCardTitle, addMember, addTag, changeDueDate } from 'action/entity'
+import { toggleDetail, editingCardTitle, editingDesc } from 'action/detail'
+import { editCardTitle, addMember, addTag, changeDueDate, editDesc } from 'action/entity'
 
 import style from './detail.css'
 
@@ -66,17 +67,62 @@ class Edit extends Component {
 	}
 }
 
+class EditDesc extends Component {
+	constructor(props) {
+		super(props)
+		this.change = this.change.bind(this)
+		this.save = this.save.bind(this)
+	}
+
+	componentDidMount() {
+		this.refs.desc.focus()
+	}
+
+	change() {
+		this.props.dispatch(editingDesc(this.refs.desc.value))
+	}
+
+	save() {
+		this.props.dispatch(editDesc({
+			index: this.props.index,
+			desc: this.refs.desc.value
+		}))
+		this.props.edit()
+	}
+
+	render() {
+		const {
+			tempDesc,
+			edit
+		} = this.props
+		return (
+			<div className={style.editDesc}>
+				<textarea
+					ref="desc"
+					value={tempDesc}
+					onChange={this.change}
+				></textarea>
+				<Button type="primary" onClick={this.save}>Save</Button>
+				<Button type="ghost" onClick={edit}>cancel</Button>
+			</div>
+		)
+	}
+}
+
 export default class Detail extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {isEditing: false}
+		this.state = {isEditing: false, isDesc: false}
 		this.editTitle = this.editTitle.bind(this)
 		this.cancelEdit = this.cancelEdit.bind(this)
 		this.addMembers = this.addMembers.bind(this)
 		this.addTags = this.addTags.bind(this)
 		this.addDueDate = this.addDueDate.bind(this)
+		this.addDesc = this.addDesc.bind(this)
 		this.cancelDueDate = this.cancelDueDate.bind(this)
 		this.dueDateChange = this.dueDateChange.bind(this)
+		this.editDescription = this.editDescription.bind(this)
+		this.deleteDesc = this.deleteDesc.bind(this)
 	}
 
 	editTitle() {
@@ -161,15 +207,40 @@ export default class Detail extends Component {
 		dispatch(changeDueDate({index, dueDate}))
 	}
 
+	addDesc() {
+		if (!this.props.card.get('desc')) {
+			this.props.dispatch(editingDesc("Write some description"))
+			this.props.dispatch(editDesc({
+				index: this.props.index,
+				desc: "Write some description"
+			}))
+			this.setState({"isDesc": true})
+		}
+	}
+
+	editDescription() {
+		this.setState({"isDesc": !this.state.isDesc})
+		this.props.dispatch(editingDesc(this.props.card.get('desc')))
+	}
+
+	deleteDesc() {
+		this.props.dispatch(editDesc({
+			index: this.props.index,
+			desc: null
+		}))
+	}
+
 	render() {
 		const {
 			card,
 			member,
 			tag,
 			user,
+			height,
 			dispatch,
 			index,
-			tempCardTitle
+			tempCardTitle,
+			tempDesc
 		} = this.props
 
 		const Members = (
@@ -233,131 +304,166 @@ export default class Detail extends Component {
 						/>
 					</div>
 				</div>
-				<div className={style.content}>
-					<div className={style.main}>
-						<div className={style.feature}>
-							{!card.get('member').isEmpty() && (
-								<div className={style.member}>
-									<div className={style.label}>Members</div>
-									{card.get('member').map(v => (
-										<Tooltip
-											key={v}
+				<Scrollbars
+					autoHide
+					autoHeight
+					autoHeightMin={300}
+					autoHeightMax={height - 100}
+					style={{width: 730}}
+				>
+					<div className={style.content}>
+						<div className={style.main}>
+							<div className={style.feature}>
+								{!card.get('member').isEmpty() && (
+									<div className={style.member}>
+										<div className={style.label}>Members</div>
+										{card.get('member').map(v => (
+											<Tooltip
+												key={v}
+												placement="bottom"
+												title={member.getIn([v, 'name'])}
+											>
+												<img src={member.getIn([v, 'avatar'])} />
+											</Tooltip>
+										))}
+										<Popover
+											overlay={Members}
+											overlayClassName={style.members}
+											title="Members"
 											placement="bottom"
-											title={member.getIn([v, 'name'])}
+											trigger="click"
 										>
-											<img src={member.getIn([v, 'avatar'])} />
-										</Tooltip>
-									))}
-									<Popover
-										overlay={Members}
-										overlayClassName={style.members}
-										title="Members"
-										placement="bottom"
-										trigger="click"
-									>
-										<Icon className="icon-add" type="plus-square" />
-									</Popover>
-								</div>
-							)}
-							{!card.get('tag').isEmpty() && (
-								<div className={style.tag}>
-									<div className={style.label}>Tags</div>
-									{card.get('tag').map(v => (
-										<div key={v}
-											 className={"tag tag-" + tag.getIn([v, 'color'])}>
-											{tag.getIn([v, 'title'])}
-										</div>
-									))}
-									<Popover
-										overlay={Tags}
-										overlayClassName={style.tags}
-										title="Tags"
-										placement="rightTop"
-										trigger="click"
-									>
-										<Icon className="icon-add" type="plus-square" />
-									</Popover>
-								</div>
-							)}
-							{card.get('dueDate') && (
-								<div className={style.dueDate}>
-									<div className={style.label}>
-										Due Date
-										<span
-											className="cancel"
-											onClick={this.cancelDueDate}
-										>cancel</span>
+											<Icon className="icon-add" type="plus-square" />
+										</Popover>
 									</div>
-									<DatePicker
-										defaultValue={card.get('dueDate')}
-										onChange={this.dueDateChange}
-									/>
+								)}
+								{!card.get('tag').isEmpty() && (
+									<div className={style.tag}>
+										<div className={style.label}>Tags</div>
+										{card.get('tag').map(v => (
+											<div key={v}
+												 className={"tag tag-" + tag.getIn([v, 'color'])}>
+												{tag.getIn([v, 'title'])}
+											</div>
+										))}
+										<Popover
+											overlay={Tags}
+											overlayClassName={style.tags}
+											title="Tags"
+											placement="rightTop"
+											trigger="click"
+										>
+											<Icon className="icon-add" type="plus-square" />
+										</Popover>
+									</div>
+								)}
+								{card.get('dueDate') && (
+									<div className={style.dueDate}>
+										<div className={style.label}>
+											Deadline
+											<span
+												className="cancel"
+												onClick={this.cancelDueDate}
+											>cancel</span>
+										</div>
+										<DatePicker
+											defaultValue={card.get('dueDate')}
+											onChange={this.dueDateChange}
+										/>
+									</div>
+								)}
+								{card.get('lastUpdate') && (
+									<div className={style.lastUpdate}>
+										<div className={style.label}>Last Update</div>
+										<div className="lastUpdate">{card.get('lastUpdate')}</div>
+									</div>
+								)}
+								{card.get('desc') && (
+									<div className={style.desc}>
+										{this.state.isDesc ? (
+											<EditDesc
+												index={index}
+												tempDesc={tempDesc}
+												dispatch={dispatch}
+												edit={this.editDescription}
+											/>
+										) : (
+											<div>
+												<div className={style.label}>
+													Description
+													<Icon 
+														className="edit"
+														onClick={this.editDescription} 
+														type="edit" 
+													/>
+													<Icon 
+														className="delete"
+														onClick={this.deleteDesc}
+														type="delete" 
+													/>
+												</div>
+												{card.get('desc')}
+											</div>
+										)}
+									</div>
+								)}
+							</div>
+							{card.get('checkList') && (
+								<div className={style.checkList}>
+									<Icon className={style.hintIcon} type="bars"/>
+									{card.get('checkList').map(v => (
+										<div key={v}>none</div>
+									))}
 								</div>
 							)}
-							{card.get('lastUpdate') && (
-								<div className={style.lastUpdate}>
-									<div className={style.label}>Last Update</div>
-									<div className="lastUpdate">{card.get('lastUpdate')}</div>
-								</div>
-							)}
-							{card.get('desc') && (
-								<div className={style.desc}>
-									<div className={style.label}>Description</div>
-									{card.get('desc')}
+
+							<div className={style.comment}>
+								<Icon className={style.hintIcon} type="message"/>
+								<img className="user" src={member.getIn([user, 'avatar'])} />
+								<h3>Add Comment</h3>
+								<textarea></textarea>
+								<Button type="primary">Send</Button>
+							</div>
+							{card.get('activity') && (
+								<div className={style.activity}>
+									<Icon className={style.hintIcon} type="notification"/>
+									<h3>Activity</h3>
+									{card.get('activity').map(v => (
+										<div key={v}></div>
+									))}
 								</div>
 							)}
 						</div>
-						{card.get('checkList') && (
-							<div className={style.checkList}>
-								<Icon className={style.hintIcon} type="bars"/>
-								{card.get('checkList').map(v => (
-									<div key={v}>none</div>
-								))}
-							</div>
-						)}
+						<div className={style.sider}>
+							<Popover
+								overlay={Members}
+								overlayClassName={style.members}
+								title="Members"
+								placement="left"
+								trigger="click"
+							>
+								<div className="item"><Icon type="team"/>Members</div>
+							</Popover>
+							<Popover
+								overlay={Tags}
+								overlayClassName={style.tags}
+								title="Tags"
+								placement="leftTop"
+								trigger="click"
+							>
+								<div className="item"><Icon type="tags-o"/>Tags</div>
+							</Popover>
 
-						<div className={style.comment}>
-							<Icon className={style.hintIcon} type="message"/>
-							<img className="user" src={member.getIn([user, 'avatar'])} />
-							<h3>Add Comment</h3>
-							<textarea></textarea>
-							<Button type="primary" size="large">Send</Button>
+							<div className="item"><Icon type="book"/>CheckList</div>
+							<div className="item" onClick={this.addDueDate}>
+								<Icon type="clock-circle-o"/>Deadline
+							</div>
+							<div className="item" onClick={this.addDesc}>
+								<Icon type="edit"/>Description
+							</div>
 						</div>
-						{card.get('activity') && (
-							<div className={style.activity}>
-								<Icon className={style.hintIcon} type="notification"/>
-								<h3>Activity</h3>
-								{card.get('activity').map(v => (
-									<div key={v}></div>
-								))}
-							</div>
-						)}
 					</div>
-					<div className={style.sider}>
-						<Popover
-							overlay={Members}
-							overlayClassName={style.members}
-							title="Members"
-							placement="left"
-							trigger="click"
-						>
-							<div className="item"><Icon type="team"/>Members</div>
-						</Popover>
-						<Popover
-							overlay={Tags}
-							overlayClassName={style.tags}
-							title="Tags"
-							placement="leftTop"
-							trigger="click"
-						>
-							<div className="item"><Icon type="tags-o"/>Tags</div>
-						</Popover>
-
-						<div className="item"><Icon type="book"/>CheckList</div>
-						<div className="item" onClick={this.addDueDate}><Icon type="clock-circle-o"/>Due Date</div>
-						<div className="item"><Icon type="edit"/>Description</div>
-					</div>
-				</div>
+				</Scrollbars>
 			</div>
 		)
 	}

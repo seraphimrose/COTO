@@ -8,7 +8,8 @@ const initialState = fromJS({
 	user: "1",
 	tempBoardTitle: null,
 	tempListTitle: null,
-	tempCardTitle: null
+	tempCardTitle: null,
+	tempDesc: null
 })
 
 export default createReducer({
@@ -18,5 +19,6 @@ export default createReducer({
 	
 	[actions.editingBoardTitle]: (state, data) => state.set('tempBoardTitle', data),
 	[actions.editingListTitle]: (state, data) => state.set('tempListTitle', data),
-	[actions.editingCardTitle]: (state, data) => state.set('tempCardTitle', data)
+	[actions.editingCardTitle]: (state, data) => state.set('tempCardTitle', data),
+	[actions.editingDesc]: (state, data) => state.set('tempDesc', data)
 }, initialState)
