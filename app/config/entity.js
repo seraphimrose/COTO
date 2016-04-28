@@ -19,10 +19,7 @@ export default {
 		1: {
 			title: "testing",
 			tag: ['1', '2'],
-			member: ['1', '2'],
-			dueDate: "2016-04-29",
-			lastUpdate: "2016-04-27 10:12:44",
-			desc: "测试测试",
+			member: ['1', '2']
 		},
 		2: {
 			title: "test233",

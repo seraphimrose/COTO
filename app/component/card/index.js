@@ -45,7 +45,8 @@ const cardDropTarget = {
 			toList: props.listIndex,
 			index: monitor.getItem().index,
 			hoverIndex: props.index,
-			upFlag: upFlag
+			upFlag: upFlag,
+			user: props.user
 		}))
 	}
 }
@@ -84,7 +85,7 @@ export default class Card extends Component {
 		return connectDropTarget(connectDragSource(
 			<div className={style.card}>
 				<div className={style.tag}>
-					{card.get('tag').map(value => (
+					{card.get('tag') && card.get('tag').map(value => (
 						<Tooltip
 							key={value}
 							placement="top"
@@ -115,7 +116,7 @@ export default class Card extends Component {
 								<Icon title="Comments" type="message" />
 								{card.get('cmtcnt')}
 							</div>)}
-						{card.get('checkList') &&
+						{card.get('checkList') && !card.get('checkList').isEmpty()
 							(<div>
 								<Icon title="CheckList Items" type="bars" />
 								{card.get('checkFinish') + "/" + card.get('checkNum')}
@@ -127,7 +128,7 @@ export default class Card extends Component {
 							</div>)}
 					</div>
 					<div className={style.member}>
-						{card.get('member').map(value => (
+						{card.get('member') && card.get('member').map(value => (
 							<Tooltip
 								key={value}
 								placement="top"

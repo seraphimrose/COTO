@@ -5,6 +5,7 @@ import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
 import Tooltip from 'antd/lib/tooltip'
 import Popover from 'antd/lib/popover'
+import Timeline from 'antd/lib/timeline'
 import DatePicker from 'antd/lib/date-picker'
 
 import { toggleDetail, editingCardTitle, editingDesc } from 'action/detail'
@@ -28,7 +29,8 @@ class Edit extends Component {
 		if (this.refs.title.value) {
 			this.props.dispatch(editCardTitle({
 				title: this.refs.title.value,
-				index: this.props.index
+				index: this.props.index,
+				user: this.props.user
 			}))
 			this.props.cancel()
 		} else {
@@ -85,7 +87,8 @@ class EditDesc extends Component {
 	save() {
 		this.props.dispatch(editDesc({
 			index: this.props.index,
-			desc: this.refs.desc.value
+			desc: this.refs.desc.value,
+			user: this.props.user
 		}))
 		this.props.edit()
 	}
@@ -139,19 +142,24 @@ export default class Detail extends Component {
 			dispatch,
 			card,
 			index,
-			member
+			member,
+			user
 		} = this.props
 
 		const key = e.target.id.split('-')[1]
 
-		let members  = card.get('member').toJS()
+		let flag
+
+		let members  = card.get('member') ? card.get('member').toJS() : []
 		if (members.indexOf(key) !== -1) {
 			members.splice(members.indexOf(key), 1)
+			flag = 0
 		} else {
 			members.push(key)
+			flag = 1
 		}
 
-		dispatch(addMember({index, members}))
+		dispatch(addMember({index, members, user, key, flag}))
 	}
 
 	addTags(e) {
@@ -159,19 +167,24 @@ export default class Detail extends Component {
 			dispatch,
 			card,
 			index,
-			tag
+			tag,
+			user
 		} = this.props
 
 		const key = e.target.id.split('-')[1]
 
-		let tags  = card.get('tag').toJS()
+		let flag
+
+		let tags = card.get('tag') ?card.get('tag').toJS() : []
 		if (tags.indexOf(key) !== -1) {
 			tags.splice(tags.indexOf(key), 1)
+			flag = 0
 		} else {
 			tags.push(key)
+			flag = 1
 		}
 
-		dispatch(addTag({index, tags}))
+		dispatch(addTag({index, tags, user, key, flag}))
 	}
 
 	addDueDate() {
@@ -179,21 +192,23 @@ export default class Detail extends Component {
 		const {
 			dispatch,
 			index,
-			card
+			card,
+			user
 		} = this.props
 
 		if (!card.get('dueDate')) {
-			dispatch(changeDueDate({index, dueDate}))
+			dispatch(changeDueDate({index, dueDate, user}))
 		}
 	}
 
 	cancelDueDate() {
 		const {
 			dispatch,
-			index
+			index,
+			user
 		} = this.props
 
-		dispatch(changeDueDate({index, dueDate: null}))
+		dispatch(changeDueDate({index, dueDate: null, user, flag: 1}))
 	}
 
 
@@ -212,7 +227,8 @@ export default class Detail extends Component {
 			this.props.dispatch(editingDesc("Write some description"))
 			this.props.dispatch(editDesc({
 				index: this.props.index,
-				desc: "Write some description"
+				desc: "Write some description",
+				user: this.props.user
 			}))
 			this.setState({"isDesc": true})
 		}
@@ -226,7 +242,9 @@ export default class Detail extends Component {
 	deleteDesc() {
 		this.props.dispatch(editDesc({
 			index: this.props.index,
-			desc: null
+			desc: null,
+			user: this.props.user,
+			flag: 1
 		}))
 	}
 
@@ -245,14 +263,14 @@ export default class Detail extends Component {
 
 		const Members = (
 			<div>
-				{member.map((v, k) => (
+				{member && member.map((v, k) => (
 					<div className="wrapper" key={k}>
 						<img
 							id={"member-" + k}
 							onClick={this.addMembers}
 							src={v.get('avatar')}
 						/>
-						{card.get('member').indexOf(k) !== -1
+						{card.get('member') && card.get('member').indexOf(k) !== -1
 						&& (<Icon className="selected" type="check-circle" />)}
 					</div>
 				))}
@@ -270,7 +288,7 @@ export default class Detail extends Component {
 						>
 							{v.get('title')}
 						</div>
-						{card.get('tag').indexOf(k) !== -1
+						{card.get('tag') && card.get('tag').indexOf(k) !== -1
 						&& (<Icon className="selected" type="check-circle" />)}
 					</div>
 				))}
@@ -284,10 +302,9 @@ export default class Detail extends Component {
 						<Icon className={style.hintIcon} type="home"/>
 						{this.state.isEditing ? (
 							<Edit
+								{...this.props}
 								title={card.get('title')}
 								cancel={this.cancelEdit}
-								dispatch={dispatch}
-								index={index}
 								tempTitle={tempCardTitle}
 							/>
 						) : (
@@ -308,13 +325,13 @@ export default class Detail extends Component {
 					autoHide
 					autoHeight
 					autoHeightMin={300}
-					autoHeightMax={height - 100}
+					autoHeightMax={height - 150}
 					style={{width: 730}}
 				>
 					<div className={style.content}>
 						<div className={style.main}>
 							<div className={style.feature}>
-								{!card.get('member').isEmpty() && (
+								{card.get('member') && !card.get('member').isEmpty() && (
 									<div className={style.member}>
 										<div className={style.label}>Members</div>
 										{card.get('member').map(v => (
@@ -337,7 +354,7 @@ export default class Detail extends Component {
 										</Popover>
 									</div>
 								)}
-								{!card.get('tag').isEmpty() && (
+								{card.get('tag') && !card.get('tag').isEmpty() && (
 									<div className={style.tag}>
 										<div className={style.label}>Tags</div>
 										{card.get('tag').map(v => (
@@ -385,6 +402,7 @@ export default class Detail extends Component {
 												index={index}
 												tempDesc={tempDesc}
 												dispatch={dispatch}
+												user={user}
 												edit={this.editDescription}
 											/>
 										) : (
@@ -408,7 +426,7 @@ export default class Detail extends Component {
 									</div>
 								)}
 							</div>
-							{card.get('checkList') && (
+							{card.get('checkList') && !card.get('checkList').isEmpty() && (
 								<div className={style.checkList}>
 									<Icon className={style.hintIcon} type="bars"/>
 									{card.get('checkList').map(v => (
@@ -424,13 +442,20 @@ export default class Detail extends Component {
 								<textarea></textarea>
 								<Button type="primary">Send</Button>
 							</div>
-							{card.get('activity') && (
+							{card.get('activity') && !card.get('activity').isEmpty() && (
 								<div className={style.activity}>
 									<Icon className={style.hintIcon} type="notification"/>
 									<h3>Activity</h3>
-									{card.get('activity').map(v => (
-										<div key={v}></div>
-									))}
+									<Timeline className="timeLine">
+										{card.get('activity').reverse().map((v, k) => (
+											<Timeline.Item key={k} color={v.get('color')}>
+												<img src={v.get('avatar')} />
+												<span className="name">{v.get('name')}</span>
+												<span className="action">{v.get('action')}</span>
+												<span className="time">{v.get('time')}</span>
+											</Timeline.Item>
+										))}
+									</Timeline>
 								</div>
 							)}
 						</div>

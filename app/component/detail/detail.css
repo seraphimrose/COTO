@@ -1,8 +1,7 @@
 :local(.detail) {
 	position: absolute;
-	left: 265px;
-	top: 45px;
-	width: 730px;
+	left: 20%;
+	top: 10%;
 	z-index: 100;
 	background: #edeff0;
 	color: #000;
@@ -233,6 +232,28 @@
 
 		:local(.activity) {
 			position: relative;
+			.ant-timeline {
+				margin-top: 20px;
+				img {
+					width: 30px;
+					height: 30px;
+					border: 1px solid #aaa;
+					border-radius: 1px;
+					margin-right: 7px;
+					vertical-align: top;
+					margin-top: -5px;
+				}
+				.name {
+					margin-right: 5px;
+					font-weight: bold;
+				}
+				.action {
+					margin-right: 5px;
+				}
+				.time {
+					color: #777
+				}
+			}
 		}
 	}
 

@@ -44,19 +44,59 @@ export default createReducer({
 	[actions.editListTitle]: (state, data) => state.setIn(['list', data.get('index'), 'title'], data.get('title')),
 	[actions.editCardTitle]: (state, data) =>
 		state.setIn(['card', data.get('index'), 'title'], data.get('title'))
-			.setIn(['card', data.get('index'), 'lastUpdate'], Now()),
+			.setIn(['card', data.get('index'), 'lastUpdate'], Now())
+			.updateIn(['card', data.get('index'), 'activity'], list => list.push(fromJS({
+				avatar: state.getIn(['member', data.get('user'), 'avatar']),
+				name: state.getIn(['member', data.get('user'), 'name']),
+				action: "edit this card title to " + data.get('title') + " at",
+				time: Now(),
+				color: "blue"
+			}))),
 
 	[actions.addMember]: (state, data) =>
 		state.setIn(['card', data.get('index'), 'member'], data.get('members'))
-			.setIn(['card', data.get('index'), 'lastUpdate'], Now()),
+			.setIn(['card', data.get('index'), 'lastUpdate'], Now())
+			.updateIn(['card', data.get('index'), 'activity'], list => list.push(fromJS({
+				avatar: state.getIn(['member', data.get('user'), 'avatar']),
+				name: state.getIn(['member', data.get('user'), 'name']),
+				action: (data.get('flag') ? "add the new member " : "remove the member ") +
+					state.getIn(['member', data.get('key'), 'name']) +
+					(data.get('flag') ? " to this card at" : " from this card at"),
+				time: Now(),
+				color: data.get('flag') ? "green" : "red"
+			}))),
 	[actions.addTag]: (state, data) =>
 		state.setIn(['card', data.get('index'), 'tag'], data.get('tags'))
-			.setIn(['card', data.get('index'), 'lastUpdate'], Now()),
+			.setIn(['card', data.get('index'), 'lastUpdate'], Now())
+			.updateIn(['card', data.get('index'), 'activity'], list => list.push(fromJS({
+				avatar: state.getIn(['member', data.get('user'), 'avatar']),
+				name: state.getIn(['member', data.get('user'), 'name']),
+				action: (data.get('flag') ? "add the new tag " : "remove the tag ") +
+				state.getIn(['tag', data.get('key'), 'title']) +
+				(data.get('flag') ? " to this card at" : " from this card at"),
+				time: Now(),
+				color: data.get('flag') ? "green" : "red"
+			}))),
 	[actions.changeDueDate]: (state, data) =>
-		state.setIn(['card', data.get('index'), 'dueDate'], data.get('dueDate'))
-			.setIn(['card', data.get('index'), 'lastUpdate'], Now()),
-	
+	state.setIn(['card', data.get('index'), 'dueDate'], data.get('dueDate'))
+		.setIn(['card', data.get('index'), 'lastUpdate'], Now())
+		.updateIn(['card', data.get('index'), 'activity'], list => list.push(fromJS({
+			avatar: state.getIn(['member', data.get('user'), 'avatar']),
+			name: state.getIn(['member', data.get('user'), 'name']),
+			action: data.get('flag') ? "remove the deadline at":
+				("add the deadline " + data.get('dueDate') + " to this card at"),
+			time: Now(),
+			color: data.get('flag') ? "red" : "blue"
+		}))),
 	[actions.editDesc]: (state, data) =>
-		state.setIn(['card', data.get('index'), 'desc'], data.get('desc'))
-			.setIn(['card', data.get('index'), 'lastUpdate'], Now()),
+	state.setIn(['card', data.get('index'), 'desc'], data.get('desc'))
+		.setIn(['card', data.get('index'), 'lastUpdate'], Now())
+		.updateIn(['card', data.get('index'), 'activity'], list => list.push(fromJS({
+			avatar: state.getIn(['member', data.get('user'), 'avatar']),
+			name: state.getIn(['member', data.get('user'), 'name']),
+			action: data.get('flag') ? "delete the description at" : "edit the description at",
+			time: Now(),
+			color: data.get('flag') ? "red" : "blue"
+		})))
+
 }, initialState)

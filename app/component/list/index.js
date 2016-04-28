@@ -25,7 +25,8 @@ const dropTarget = {
 		props.dispatch(pushCard({
 			index: monitor.getItem().index,
 			fromList: fromList,
-			toList: props.index
+			toList: props.index,
+			user: props.user
 		}))
 	}
 }
@@ -54,7 +55,9 @@ class AddCard extends Component {
 			index,
 			next,
 			dispatch,
-			cancel
+			cancel,
+			user,
+			member
 		} = this.props
 
 		const value = this.refs.myInput.value
@@ -69,9 +72,14 @@ class AddCard extends Component {
 				card: {
 					[next]: {
 						title: value,
-						tag: [],
-						member: [],
-						lastUpdate: Now()
+						lastUpdate: Now(),
+						activity: [{
+							avatar: member.getIn([user, 'avatar']),
+							name: member.getIn([user, 'name']),
+							action: "created this card at",
+							time: Now(),
+							color: "green"
+						}]
 					}
 				}
 			}
@@ -257,6 +265,7 @@ export default class List extends Component {
 					</Scrollbars>
 					{this.state.isAdding ? (
 						<AddCard
+							{...this.props}
 							cardShowed={list.get('card').toJS()}
 							index={index}
 							cancel={this.cancel}

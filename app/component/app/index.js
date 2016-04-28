@@ -12,15 +12,9 @@ export default (props) => (
 		{props.showDetail && (
 			<div>
 				<Detail
-					user={props.user}
-					height={props.height}
+					{...props}
 					card={props.card.get(props.detailIndex)}
 					index={props.detailIndex}
-					tag={props.tag}
-					member={props.member}
-					dispatch={props.dispatch}
-					tempCardTitle={props.tempCardTitle}
-					tempDesc={props.tempDesc}
 				/>
 				<div id="mask" onClick={() => props.dispatch(toggleDetail({}))}></div>
 			</div>
