@@ -408,6 +408,7 @@
 		}
 		.icon {
 			margin-left: 3px;
+			cursor: pointer;
 			&.ok {
 				color: #61bd4f;
 			}
