@@ -119,6 +119,10 @@ export default createReducer({
 				time: now(),
 				color: "green",
 				type: "comment"
-			})))
+			}))),
 
+	[actions.addNewTag]: (state, data) => state.mergeDeep(data),
+	[actions.removeTag]: (state, data) =>
+		state.deleteIn(['tag', data.get('index')])
+			.deleteIn(['card', data.get('cardIndex'), 'tag'], state.getIn(['card', data.get('cardIndex'), 'tag']).indexOf(data.get('index')))
 }, initialState)

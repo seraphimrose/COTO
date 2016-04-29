@@ -5,6 +5,7 @@ const listSelector = state => state.entity.get('list')
 const cardSelector = state => state.entity.get('card')
 const tagSelector = state => state.entity.get('tag')
 const memberSelector = state => state.entity.get('member')
+const colorSelector = state => state.entity.get('color')
 
 export default immutableSelector(
 	boardSelector,
@@ -12,7 +13,8 @@ export default immutableSelector(
 	cardSelector,
 	tagSelector,
 	memberSelector,
-	(board, list, card, tag, member) => ({
-		board, list, card, tag, member
+	colorSelector,
+	(board, list, card, tag, member, color) => ({
+		board, list, card, tag, member, color
 	})
 )

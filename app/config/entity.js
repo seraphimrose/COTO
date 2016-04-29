@@ -76,5 +76,16 @@ export default {
 			name: 'King',
 			avatar: 'static/img/avatar6.jpg'
 		}
+	},
+
+	color: {
+		1: "red",
+		2: "blue",
+		3: "yellow",
+		4: "green",
+		5: "orange",
+		6: "purple",
+		7: "pink",
+		8: "black"
 	}
 }

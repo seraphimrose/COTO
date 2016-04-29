@@ -10,7 +10,7 @@ import DatePicker from 'antd/lib/date-picker'
 
 import { today } from 'api/date'
 import { toggleDetail, editingCardTitle, editingDesc } from 'action/detail'
-import { editCardTitle, addMember, addTag, changeDueDate, editDesc, addComment } from 'action/entity'
+import { editCardTitle, addMember, addTag, changeDueDate, editDesc, addComment, addNewTag, removeTag } from 'action/entity'
 
 import style from './detail.css'
 
@@ -113,10 +113,52 @@ class EditDesc extends Component {
 	}
 }
 
+class EditTag extends Component {
+	constructor(props) {
+		super(props)
+		this.add = this.add.bind(this)
+		this.error = this.error.bind(this)
+	}
+
+	componentDidMount() {
+		this.refs.tag.focus()
+	}
+
+	add() {
+		if (this.refs.tag.value) {
+			this.props.dispatch(addNewTag({
+				tag: {
+					[this.props.next.get('tag')]: {
+						title: this.refs.tag.value,
+						color: this.props.color.get(this.props.next.get('tag'))
+					}
+				}
+			}))
+			this.props.cancel()
+		} else {
+			this.error()
+		}
+	}
+
+	error() {
+		this.refs.tag.style.border = "1px solid #eb5a46"
+	}
+
+	render() {
+		return (
+			<div className="add-tag">
+				<input ref="tag" type="text" />
+				<Icon className="icon ok" onClick={this.add} type="check" />
+				<Icon className="icon cancel" onClick={this.props.cancel} type="cross" />
+			</div>
+		)
+	}
+}
+
 export default class Detail extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {isEditing: false, isDesc: false}
+		this.state = {isEditing: false, isDesc: false, isTag: false}
 		this.editTitle = this.editTitle.bind(this)
 		this.cancelEdit = this.cancelEdit.bind(this)
 		this.addMembers = this.addMembers.bind(this)
@@ -128,6 +170,8 @@ export default class Detail extends Component {
 		this.dueDateChange = this.dueDateChange.bind(this)
 		this.editDescription = this.editDescription.bind(this)
 		this.deleteDesc = this.deleteDesc.bind(this)
+		this.toggleTag = this.toggleTag.bind(this)
+		this.delTag = this.delTag.bind(this)
 	}
 
 	editTitle() {
@@ -213,7 +257,6 @@ export default class Detail extends Component {
 		dispatch(changeDueDate({index, dueDate: null, user, flag: 1}))
 	}
 
-
 	dueDateChange(value) {
 		const dueDate = moment(value).format().slice(0, 10)
 		const {
@@ -263,6 +306,17 @@ export default class Detail extends Component {
 		}))
 	}
 
+	toggleTag() {
+		this.setState({isTag: !this.state.isTag})
+	}
+
+	delTag(e) {
+		this.props.dispatch(removeTag({
+			index: e.target.id.split('-')[1],
+			cardIndex: this.props.index
+		}))
+	}
+
 	render() {
 		const {
 			card,
@@ -294,19 +348,31 @@ export default class Detail extends Component {
 
 		const Tags = (
 			<div>
-				{tag.map((v, k) => (
-					<div className="wrapper" key={k}>
-						<div
-							id={"tag-" + k}
-							className={"tag tag-" + v.get('color')}
-							onClick={this.addTags}
-						>
-							{v.get('title')}
+				<div>
+					{tag.map((v, k) => (
+						<div className="wrapper" key={k}>
+							<div
+								id={"tag-" + k}
+								className={"tag tag-" + v.get('color')}
+								onClick={this.addTags}
+							>
+								{v.get('title')}
+							</div>
+							<Icon className="del" type="delete" id={"deltag-" + k} onClick={this.delTag}/>
+							{card.get('tag') && card.get('tag').indexOf(k) !== -1
+							&& (<Icon className="selected" type="check-circle" />)}
 						</div>
-						{card.get('tag') && card.get('tag').indexOf(k) !== -1
-						&& (<Icon className="selected" type="check-circle" />)}
-					</div>
-				))}
+					))}
+				</div>
+				<div>
+					{this.state.isTag ? (
+						<EditTag {...this.props} cancel={this.toggleTag}/>
+					) : (
+						<div className="new-tags" onClick={this.toggleTag}>
+							Add new tags...
+						 </div>
+					)}
+				</div>
 			</div>
 		)
 

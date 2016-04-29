@@ -329,6 +329,7 @@
 }
 
 :local(.tags) {
+	width: 200px;
 	.wrapper {
 		position: relative;
 		margin-right: 3px;
@@ -378,10 +379,41 @@
 
 		.selected {
 			position: absolute;
-			top: 2px;
-			right: -10px;
+			top: 5px;
+			right: 7px;
 			font-size: 14px;
 			color: #61bd4f;
+		}
+
+		.del {
+			position: absolute;
+			right: -12px;
+			top: 6px;
+			color: #eb5a46;
+			cursor: pointer;
+		}
+	}
+
+	.new-tags {
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.add-tag {
+		input {
+			margin-left: 1px;
+			width: 100px;
+		}
+		.icon {
+			margin-left: 3px;
+			&.ok {
+				color: #61bd4f;
+			}
+			&.cancel {
+				color: #eb5a46;
+			}
 		}
 	}
 }

@@ -30,3 +30,7 @@ export const changeDueDate = createAction("Change due date", data => fromJS(data
 export const editDesc = createAction("Edit the description", data => fromJS(data))
 
 export const addComment = createAction("Comment", data => fromJS(data))
+
+export const addNewTag = createAction("Add a new tag", data => fromJS(data))
+
+export const removeTag = createAction("Remove a tag", data => fromJS(data))
