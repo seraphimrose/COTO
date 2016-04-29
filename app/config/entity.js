@@ -1,80 +1,138 @@
 export default {
 	board: {
-		title: "Test",
-		list: ['1', '2']
+		title: "饿了么网上订餐",
+		list: ['1', '2', '3']
 	},
-	
+
 	list: {
 		1: {
-			title: "Test",
-			card: ['1', '2']
+			title: "To do",
+			card: ['1', '2', '3', '11']
 		},
 		2: {
-			title: "Test Another",
-			card: ['3']
+			title: "Doing",
+			card: ['4', '5', '6', '7']
+		},
+		3: {
+			title: "Finish",
+			card: ['8', '9', '10']
+
 		}
 	},
 	
 	card: {
 		1: {
-			title: "testing",
-			tag: ['1', '2'],
-			member: ['1', '2'],
-			activity: []
+			title: "移动平台APP UI设计",
+			tag: ['6'],
+			member: ['3', '7']
 		},
 		2: {
-			title: "test233",
-			tag: ['3'],
-			member: ['1'],
-			activity: []
+			title: "线下店家营业执照认证，实地考察卫生状况",
+			tag: ['1'],
+			member: ['3', '4']
 		},
 		3: {
-			title: "tryTest",
-			tag: ['2'],
-			member: ['2'],
-			activity: []
+			title: "部署服务器升级",
+			tag: ['4'],
+			member: ['1']
+		},
+		4: {
+			title: "饿了么主站Web页开发",
+			tag: ['1', '3', '4'],
+			member: ['1', '2']
+		},
+		5: {
+			title: "线下店家合作（上海市区）",
+			tag: ['2', '5'],
+			member: ['3', '4']
+		},
+		6: {
+			title: "大学校园宣传海报设计",
+			tag: ['3', '6'],
+			member: ['7']
+		},
+		7: {
+			title: "技术部招聘——笔试题策划",
+			member: ['2']
+		},
+		8: {
+			title: "线上问卷调查 “点外卖时你最常吃哪种类型的食物”等",
+			tag: ['5'],
+			member: ['5', '6']
+		},
+		9: {
+			title: "华师大校园线下推广",
+			tag: ['5'],
+			member: ['6']
+		},
+		10: {
+			title: "饿了么主站Web页设计",
+			tag: ['1', '6'],
+			member: ['7']
+		},
+		11: {
+			title: "建立微信公众号",
+			tag: ["5"],
+			member: ["1", "2", "5", "6"]
 		}
+
 	},
 
 	tag: {
 		1: {
 			color: 'red',
-			title: 'do red'
+			title: '重要'
 		},
 		2: {
 			color: 'blue',
-			title: 'do blue'
+			title: '长期计划'
 		},
 		3: {
 			color: 'yellow',
-			title: 'do yel'
+			title: '本周任务'
+		},
+		4: {
+			color: 'green',
+			title: '技术相关'
+		},
+		5: {
+			color: 'orange',
+			title: '业务推广'
+		},
+		6: {
+			color: 'purple',
+			title: '产品 & 设计'
 		}
 	},
 
 	member: {
 		1: {
-			name: 'Sera',
+			name: '技术—王明',
 			avatar: 'static/img/avatar1.jpg'
 		},
 		2: {
-			name: 'Diane',
-			avatar: 'static/img/avatar2.jpg'
+			name: '技术—刘杰',
+			avatar: 'static/img/avatar4.jpg'
 		},
 		3: {
-			name: 'Merlin',
+			name: '业务—张林',
 			avatar: 'static/img/avatar3.jpg'
 		},
 		4: {
-			name: 'Escanor',
-			avatar: 'static/img/avatar4.jpg'
+			name: '业务—陈晨',
+			avatar: 'static/img/avatar2.jpg'
 		},
 		5: {
-			name: 'Meliodas',
+			name: '市场—李华',
 			avatar: 'static/img/avatar5.jpg'
 		},
 		6: {
-			name: 'King',
+			name: '市场—周亮',
 			avatar: 'static/img/avatar6.jpg'
+		},
+		7: {
+			name: '设计—徐婷',
+			avatar: 'static/img/avatar7.jpg'
 		}
 	},
 

@@ -1,5 +1,5 @@
 export default {
-	list: '3',
-	card: '4',
-	tag: '4'
+	list: '4',
+	card: '12',
+	tag: '7'
 }

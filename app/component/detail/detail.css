@@ -342,6 +342,7 @@
 			cursor: pointer;
 			color: #fff;
 			text-shadow: 0 0 5px rgba(0, 0, 0, .2), 0 0 2px #000;
+			white-space: pre-line;
 
 			&.tag-red {
 				background: #eb5a46;

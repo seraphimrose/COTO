@@ -338,6 +338,7 @@ export default class Detail extends Component {
 							id={"member-" + k}
 							onClick={this.addMembers}
 							src={v.get('avatar')}
+							title={v.get('name')}
 						/>
 						{card.get('member') && card.get('member').indexOf(k) !== -1
 						&& (<Icon className="selected" type="check-circle" />)}
