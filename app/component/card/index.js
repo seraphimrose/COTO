@@ -4,7 +4,7 @@ import Icon from 'antd/lib/icon'
 import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom'
 
-import { removeCard, moveCard } from 'action/entity'
+import { removeCard, moveCard, moveLog } from 'action/entity'
 import { toggleDetail } from 'action/detail'
 import style from './card.css'
 
@@ -48,10 +48,18 @@ const cardDropTarget = {
 			upFlag: upFlag,
 			user: props.user
 		}))
+	},
+
+	drop(props, monitor) {
+		props.dispatch(moveLog({
+			user: props.user,
+			index: monitor.getItem().index,
+			toList: props.listIndex
+		}))
 	}
 }
 
-function dragCollect(connect, monitor) {
+function dragCollect(connect) {
 	return {
 		connectDragSource: connect.dragSource(),
 	}

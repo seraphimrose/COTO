@@ -9,7 +9,7 @@ import Timeline from 'antd/lib/timeline'
 import DatePicker from 'antd/lib/date-picker'
 
 import { toggleDetail, editingCardTitle, editingDesc } from 'action/detail'
-import { editCardTitle, addMember, addTag, changeDueDate, editDesc } from 'action/entity'
+import { editCardTitle, addMember, addTag, changeDueDate, editDesc, addComment } from 'action/entity'
 
 import style from './detail.css'
 
@@ -122,6 +122,7 @@ export default class Detail extends Component {
 		this.addTags = this.addTags.bind(this)
 		this.addDueDate = this.addDueDate.bind(this)
 		this.addDesc = this.addDesc.bind(this)
+		this.addCmt = this.addCmt.bind(this)
 		this.cancelDueDate = this.cancelDueDate.bind(this)
 		this.dueDateChange = this.dueDateChange.bind(this)
 		this.editDescription = this.editDescription.bind(this)
@@ -231,6 +232,18 @@ export default class Detail extends Component {
 				user: this.props.user
 			}))
 			this.setState({"isDesc": true})
+		}
+	}
+
+	addCmt() {
+		const cmt = document.getElementById('comment')
+		if (cmt.value) {
+			this.props.dispatch(addComment({
+				user: this.props.user,
+				index: this.props.index,
+				comment: cmt.value
+			}))
+			cmt.value = ""
 		}
 	}
 
@@ -439,8 +452,8 @@ export default class Detail extends Component {
 								<Icon className={style.hintIcon} type="message"/>
 								<img className="user" src={member.getIn([user, 'avatar'])} />
 								<h3>Add Comment</h3>
-								<textarea></textarea>
-								<Button type="primary">Send</Button>
+								<textarea id="comment"></textarea>
+								<Button type="primary" onClick={this.addCmt}>Send</Button>
 							</div>
 							{card.get('activity') && !card.get('activity').isEmpty() && (
 								<div className={style.activity}>
@@ -448,12 +461,23 @@ export default class Detail extends Component {
 									<h3>Activity</h3>
 									<Timeline className="timeLine">
 										{card.get('activity').reverse().map((v, k) => (
-											<Timeline.Item key={k} color={v.get('color')}>
-												<img src={v.get('avatar')} />
-												<span className="name">{v.get('name')}</span>
-												<span className="action">{v.get('action')}</span>
-												<span className="time">{v.get('time')}</span>
-											</Timeline.Item>
+											v.get('type') === "comment" ? (
+												<Timeline.Item key={k} color={v.get('color')}>
+													<div className="cmt">
+														<img src={v.get('avatar')} />
+														<span className="name">{v.get('name')}</span>
+														<div className="action">{v.get('action')}</div>
+														<div className="time">{v.get('time')}</div>
+													</div>
+												</Timeline.Item>
+											) : (
+												<Timeline.Item key={k} color={v.get('color')}>
+													<img src={v.get('avatar')} />
+													<span className="name">{v.get('name')}</span>
+													<span className="action">{v.get('action')}</span>
+													<span className="time">{v.get('time')}</span>
+												</Timeline.Item>
+											)
 										))}
 									</Timeline>
 								</div>

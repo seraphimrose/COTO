@@ -19,17 +19,20 @@ export default {
 		1: {
 			title: "testing",
 			tag: ['1', '2'],
-			member: ['1', '2']
+			member: ['1', '2'],
+			activity: []
 		},
 		2: {
 			title: "test233",
 			tag: ['3'],
-			member: ['1']
+			member: ['1'],
+			activity: []
 		},
 		3: {
 			title: "tryTest",
 			tag: ['2'],
-			member: ['2']
+			member: ['2'],
+			activity: []
 		}
 	},
 

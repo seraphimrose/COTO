@@ -13,6 +13,8 @@ export const moveCard = createAction("Move a card", data => fromJS(data))
 
 export const pushCard = createAction("Push a card to end of List", data => fromJS(data))
 
+export const moveLog = createAction("Move card log", data => fromJS(data))
+
 export const editBoardTitle = createAction("Edit board title", data => fromJS(data))
 
 export const editListTitle = createAction("Edit list title", data => fromJS(data))
@@ -26,3 +28,5 @@ export const addTag = createAction("Add tags to card", data => fromJS(data))
 export const changeDueDate = createAction("Change due date", data => fromJS(data))
 
 export const editDesc = createAction("Edit the description", data => fromJS(data))
+
+export const addComment = createAction("Comment", data => fromJS(data))

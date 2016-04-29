@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
-import moment from 'moment'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { DropTarget } from 'react-dnd'
 
-
 import Now from 'api/getNow'
-import { addCard, removeList, pushCard, editListTitle } from 'action/entity'
+import { addCard, removeList, pushCard, editListTitle, moveLog } from 'action/entity'
 import { editingListTitle } from 'action/detail'
 
 import Card from 'component/card'
@@ -27,6 +25,14 @@ const dropTarget = {
 			fromList: fromList,
 			toList: props.index,
 			user: props.user
+		}))
+	},
+
+	drop(props, monitor) {
+		props.dispatch(moveLog({
+			user: props.user,
+			index: monitor.getItem().index,
+			toList: props.listIndex
 		}))
 	}
 }
