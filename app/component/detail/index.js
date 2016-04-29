@@ -8,6 +8,7 @@ import Popover from 'antd/lib/popover'
 import Timeline from 'antd/lib/timeline'
 import DatePicker from 'antd/lib/date-picker'
 
+import { today } from 'api/date'
 import { toggleDetail, editingCardTitle, editingDesc } from 'action/detail'
 import { editCardTitle, addMember, addTag, changeDueDate, editDesc, addComment } from 'action/entity'
 
@@ -189,7 +190,7 @@ export default class Detail extends Component {
 	}
 
 	addDueDate() {
-		const dueDate = moment().format().slice(0, 10)
+		const dueDate = today()
 		const {
 			dispatch,
 			index,
@@ -217,10 +218,11 @@ export default class Detail extends Component {
 		const dueDate = moment(value).format().slice(0, 10)
 		const {
 			dispatch,
-			index
+			index,
+			user
 		} = this.props
 
-		dispatch(changeDueDate({index, dueDate}))
+		dispatch(changeDueDate({index, dueDate, user}))
 	}
 
 	addDesc() {
@@ -503,7 +505,7 @@ export default class Detail extends Component {
 								<div className="item"><Icon type="tags-o"/>Tags</div>
 							</Popover>
 
-							<div className="item"><Icon type="book"/>CheckList</div>
+							{/*<div className="item"><Icon type="book"/>CheckList</div>*/}
 							<div className="item" onClick={this.addDueDate}>
 								<Icon type="clock-circle-o"/>Deadline
 							</div>

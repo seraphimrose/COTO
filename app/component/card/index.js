@@ -4,6 +4,7 @@ import Icon from 'antd/lib/icon'
 import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom'
 
+import { isPast } from 'api/date'
 import { removeCard, moveCard, moveLog } from 'action/entity'
 import { toggleDetail } from 'action/detail'
 import style from './card.css'
@@ -130,8 +131,8 @@ export default class Card extends Component {
 								{card.get('checkFinish') + "/" + card.get('checkNum')}
 							</div>)}
 						{card.get('dueDate') &&
-							(<div>
-								<Icon title="Due Date" type="clock-circle-o" />
+							(<div style={{color: isPast(card.get('dueDate')) && "#eb5a46"}}>
+								<Icon title="Deadline" type="clock-circle-o" />
 								{card.get('dueDate')}
 							</div>)}
 					</div>

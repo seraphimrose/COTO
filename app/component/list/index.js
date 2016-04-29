@@ -4,7 +4,7 @@ import Button from 'antd/lib/button'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { DropTarget } from 'react-dnd'
 
-import Now from 'api/getNow'
+import { now } from 'api/date'
 import { addCard, removeList, pushCard, editListTitle, moveLog } from 'action/entity'
 import { editingListTitle } from 'action/detail'
 
@@ -78,12 +78,12 @@ class AddCard extends Component {
 				card: {
 					[next]: {
 						title: value,
-						lastUpdate: Now(),
+						lastUpdate: now(),
 						activity: [{
 							avatar: member.getIn([user, 'avatar']),
 							name: member.getIn([user, 'name']),
 							action: "created this card at",
-							time: Now(),
+							time: now(),
 							color: "green"
 						}]
 					}
