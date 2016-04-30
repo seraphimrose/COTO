@@ -1,7 +1,7 @@
 export default {
 	board: {
 		title: "饿了么网上订餐",
-		list: ['1', '2', '3']
+		list: ['1', '2', '3', '4']
 	},
 
 	list: {
@@ -17,6 +17,10 @@ export default {
 			title: "Finish",
 			card: ['8', '9', '10']
 
+		},
+		4: {
+			title: "建议",
+			card: []
 		}
 	},
 	
@@ -33,8 +37,7 @@ export default {
 		},
 		3: {
 			title: "部署服务器升级",
-			tag: ['4'],
-			member: ['1']
+			tag: ['4']
 		},
 		4: {
 			title: "饿了么主站Web页开发",
@@ -57,7 +60,6 @@ export default {
 		},
 		8: {
 			title: "线上问卷调查 “点外卖时你最常吃哪种类型的食物”等",
-			tag: ['5'],
 			member: ['5', '6']
 		},
 		9: {
@@ -73,7 +75,7 @@ export default {
 		11: {
 			title: "建立微信公众号",
 			tag: ["5"],
-			member: ["1", "2", "5", "6"]
+			member: ["1", "5", "6"]
 		}
 
 	},
