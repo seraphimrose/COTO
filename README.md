@@ -1,2 +1,2 @@
 # COTO
-The system like Trello
+Collaboration Tool
