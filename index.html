@@ -10,7 +10,8 @@
 </body>
 <script>
 	function makeBg() {
-		var rand = Math.ceil(Math.random() * 9)
+		var rand
+		while (!rand) rand = Math.ceil(Math.random() * 10)
 		var imgPath = './static/img/bg' + rand + '.jpg'
 		document.getElementById('bg').style.backgroundImage = 'url("' + imgPath + '")'
 		document.getElementById('bg').style.backgroundSize = '100% 100%'
