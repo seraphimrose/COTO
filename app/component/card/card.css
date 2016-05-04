@@ -2,7 +2,6 @@
 	position: relative;
 	width: 260px;
 	padding: 5px;
-	min-height: 60px;
 	margin-bottom: 8px;
 	background: #FFF;
 	border-radius: 5px;
@@ -66,6 +65,7 @@
 
 	:local(.content) {
 		overflow: hidden;
+		min-height: 40px;
 	}
 
 	:local(.title) {
