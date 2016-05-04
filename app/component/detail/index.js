@@ -23,13 +23,13 @@ class Edit extends Component {
 	}
 
 	componentDidMount() {
-		this.refs.title.focus()
+		this.refs.cardTitle.focus()
 	}
 
 	confirm() {
-		if (this.refs.title.value) {
+		if (this.refs.cardTitle.value) {
 			this.props.dispatch(editCardTitle({
-				title: this.refs.title.value,
+				title: this.refs.cardTitle.value,
 				index: this.props.index,
 				user: this.props.user
 			}))
@@ -40,11 +40,11 @@ class Edit extends Component {
 	}
 
 	error() {
-		this.refs.title.style.border = "1px solid red"
+		this.refs.cardTitle.style.border = "1px solid red"
 	}
 
 	change() {
-		this.props.dispatch(editingCardTitle(this.refs.title.value))
+		this.props.dispatch(editingCardTitle(this.refs.cardTitle.value))
 	}
 
 	render() {
@@ -57,7 +57,7 @@ class Edit extends Component {
 			<div className={style.edit}>
 				<input
 					type="text"
-					ref="title"
+					ref="cardTitle"
 					value={tempTitle}
 					onChange={this.change}
 				/>

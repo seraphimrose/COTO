@@ -81,16 +81,16 @@ class Edit extends Component {
 	}
 
 	componentDidMount() {
-		this.refs.title.focus()
+		this.refs.boardTitle.focus()
 	}
 
 	change() {
-		this.props.dispatch(editingBoardTitle(this.refs.title.value))
+		this.props.dispatch(editingBoardTitle(this.refs.boardTitle.value))
 	}
 
 	confirm() {
-		if (this.refs.title.value) {
-			this.props.dispatch(editBoardTitle({title: this.refs.title.value}))
+		if (this.refs.boardTitle.value) {
+			this.props.dispatch(editBoardTitle({title: this.refs.boardTitle.value}))
 			this.props.cancel()
 		} else {
 			this.error()
@@ -98,7 +98,7 @@ class Edit extends Component {
 	}
 
 	error() {
-		this.refs.title.style.border = "1px solid red"
+		this.refs.boardTitle.style.border = "1px solid red"
 	}
 
 	render() {
@@ -111,7 +111,7 @@ class Edit extends Component {
 			<div className={style.edit}>
 				<input
 					type="text"
-					ref="title"
+					ref="boardTitle"
 					value={tempTitle}
 					onChange={this.change}
 				/>

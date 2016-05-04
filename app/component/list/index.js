@@ -144,13 +144,13 @@ class Edit extends Component {
 	}
 
 	componentDidMount() {
-		this.refs.title.focus()
+		this.refs.ListTitle.focus()
 	}
 
 	confirm() {
-		if (this.refs.title.value) {
+		if (this.refs.ListTitle.value) {
 			this.props.dispatch(editListTitle({
-				title: this.refs.title.value,
+				title: this.refs.ListTitle.value,
 				index: this.props.index
 			}))
 			this.props.cancel()
@@ -160,11 +160,11 @@ class Edit extends Component {
 	}
 
 	change() {
-		this.props.dispatch(editingListTitle(this.refs.title.value))
+		this.props.dispatch(editingListTitle(this.refs.ListTitle.value))
 	}
 
 	error() {
-		this.refs.title.style.border = "1px solid red"
+		this.refs.ListTitle.style.border = "1px solid red"
 	}
 
 	render() {
@@ -177,7 +177,7 @@ class Edit extends Component {
 			<div className={style.edit}>
 				<input
 					type="text"
-					ref="title"
+					ref="ListTitle"
 					value={tempTitle}
 					onChange={this.change}
 				/>
