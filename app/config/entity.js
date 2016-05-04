@@ -28,54 +28,65 @@ export default {
 		1: {
 			title: "移动平台APP UI设计",
 			tag: ['6'],
-			member: ['3', '7']
+			member: ['3', '7'],
+			activity: []
 		},
 		2: {
 			title: "线下店家营业执照认证，实地考察卫生状况",
 			tag: ['1'],
-			member: ['3', '4']
+			member: ['3', '4'],
+			activity: []
 		},
 		3: {
 			title: "部署服务器升级",
-			tag: ['4']
+			tag: ['4'],
+			activity: []
 		},
 		4: {
 			title: "饿了么主站Web页开发",
 			tag: ['1', '3', '4'],
-			member: ['1', '2']
+			member: ['1', '2'],
+			activity: []
 		},
 		5: {
 			title: "线下店家合作（上海市区）",
 			tag: ['2', '5'],
-			member: ['3', '4']
+			member: ['3', '4'],
+			activity: []
 		},
 		6: {
 			title: "大学校园宣传海报设计",
 			tag: ['3', '6'],
-			member: ['7']
+			member: ['7'],
+			activity: []
 		},
 		7: {
 			title: "技术部招聘——笔试题策划",
-			member: ['2']
+			member: ['2'],
+			activity: []
 		},
 		8: {
 			title: "线上问卷调查 “点外卖时你最常吃哪种类型的食物”等",
-			member: ['5', '6']
+			member: ['5', '6'],
+			activity: []
 		},
 		9: {
 			title: "华师大校园线下推广",
 			tag: ['5'],
-			member: ['6']
+			member: ['6'],
+			activity: []
 		},
 		10: {
 			title: "饿了么主站Web页设计",
 			tag: ['1', '6'],
-			member: ['7']
+			member: ['7'],
+			activity: []
 		},
 		11: {
 			title: "建立微信公众号",
 			tag: ["5"],
-			member: ["1", "5", "6"]
+			member: ["1", "5", "6"],
+			activity: []
 		}
 
 	},
