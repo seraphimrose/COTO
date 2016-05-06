@@ -12,4 +12,4 @@ static
 
 # testing code
 test
-test.js
+__tests__
