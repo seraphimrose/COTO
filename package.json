@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Asserts",
   "author": "Sera",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "antd": "0.12.12",
     "axios": "0.8.1",
@@ -32,6 +35,7 @@
     "css-loader": "^0.15.1",
     "es5-shim": "~4.1.10",
     "extract-text-webpack-plugin": "^0.9.1",
+    "jest-cli": "^12.0.2",
     "postcss-loader": "^0.6.0",
     "postcss-nested": "^1.0.0",
     "postcss-simple-vars": "^1.0.0",
