@@ -5,17 +5,16 @@
 	<title>COTO</title>
 	<link rel="stylesheet" href="./static/COTO.css" />
 </head>
-<body id="bg" onload="makeBg()">
-	<div id="app"></div>
+<style>
+	body {
+		background: url('./static/img/bg6.jpg') no-repeat;
+		background-size: 100% 100%;
+	}
+</style>
+<body>
+<div id="app"></div>
 </body>
 <script>
-	function makeBg() {
-		var rand
-		while (!rand) rand = Math.ceil(Math.random() * 10)
-		var imgPath = './static/img/bg' + rand + '.jpg'
-		document.getElementById('bg').style.backgroundImage = 'url("' + imgPath + '")'
-		document.getElementById('bg').style.backgroundSize = '100% 100%'
-	}
 </script>
 <script src="./static/COTO.js">
 </script>

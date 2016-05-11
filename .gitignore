@@ -12,4 +12,4 @@ static
 
 # testing code
 test
-__tests__
+__tests__/*
